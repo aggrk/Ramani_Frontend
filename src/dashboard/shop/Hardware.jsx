@@ -3,32 +3,15 @@ import { useEffect, useState } from "react";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import HardwareCard from "./HardwareCard";
 import { Link } from "react-router-dom";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import useGet from "../../hooks/useGet";
+import { apiUrl } from "../../utils/utils";
+import NoData from "../../components/NoData";
 
 export default function Hardware() {
-  const [hardware, setHardware] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(hardware);
+  const { data, isLoading } = useGet(`${apiUrl}/hardware`);
+  const hardware = data?.hardware || [];
 
-  useEffect(() => {
-    const getHardware = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios(`${apiUrl}/hardware`, {
-          withCredentials: true,
-        });
-        setHardware(res.data.data.hardware);
-      } catch (err) {
-        console.log(err?.response?.data?.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getHardware();
-  }, []);
-
-  if (isLoading)
+  if (isLoading || data === null)
     return (
       <div className="flex h-screen items-center justify-center">
         <ActivityIndicator size="lg" />
@@ -44,19 +27,16 @@ export default function Hardware() {
           </h1>
           <div className="w-ful flex flex-col gap-5">
             {hardware?.map((hardware) => (
-              <HardwareCard key={hardware._id} handware={hardware} />
+              <HardwareCard key={hardware._id} hardware={hardware} />
             ))}
           </div>
         </>
       ) : (
-        <div className="mt-12 self-center">
-          <p className="text-xl text-[#781717] lg:text-2xl">
-            No Hardware yet!{" "}
-            <Link to="/dashboard" className="font-semibold italic underline">
-              Back to Dashboard
-            </Link>
-          </p>
-        </div>
+        <NoData
+          message="No Hardware yet!"
+          linkMessage="Back to Dashboard"
+          link="/dashboard"
+        />
       )}
     </main>
   );

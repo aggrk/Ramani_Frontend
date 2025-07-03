@@ -13,6 +13,9 @@ import SiteDetails from "./dashboard/site/SiteDetails";
 import MyApplications from "./dashboard/application/MyApplications";
 import { Toaster } from "react-hot-toast";
 import Hardware from "./dashboard/shop/Hardware";
+import Products from "./dashboard/shop/Products";
+import ProductDetails from "./dashboard/shop/ProductDetails";
+import Cart from "./dashboard/cart/Cart";
 
 export default function App() {
   return (
@@ -22,13 +25,20 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="profile" element={<Profile />} />
           <Route path="sites" element={<SiteList />} />
           <Route path="sites/:id" element={<SiteDetails />} />
           <Route path="applications" element={<MyApplications />} />
-          <Route path="hardware" element={<Hardware />} />
+          <Route path="hardware">
+            <Route index element={<Hardware />} />
+            <Route path=":id">
+              <Route path="products" element={<Products />} />
+              <Route path="products/:productId" element={<ProductDetails />} />
+            </Route>
+          </Route>
+          <Route path="cart" element={<Cart />} />
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />

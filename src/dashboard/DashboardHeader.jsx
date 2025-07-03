@@ -7,27 +7,42 @@ import {
   Edit2,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-
-const imgUrl = import.meta.env.VITE_IMG_URL;
+import { apiUrl, imageUrl } from "../utils/utils";
+import axios from "axios";
 
 export default function DashboardHeader({ name, role }) {
   const [notifications] = useState(3);
   const { logout, user } = useAuth();
-  const [cartItems] = useState(2);
+  const [cartItems, setCartItems] = useState(0);
   const { photo } = user.data;
 
+  useEffect(() => {
+    const getCarts = async () => {
+      try {
+        const res = await axios.get(`${apiUrl}/carts/getMyCarts`, {
+          withCredentials: true,
+        });
+        setCartItems(res.data.data.length);
+      } catch (err) {
+        console.error(err?.response?.data?.message);
+      }
+    };
+
+    getCarts();
+  }, []);
+
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary flex items-center">
-              <span className="bg-primary/10 p-2 rounded-lg mr-2">
-                <HardHat className="w-5 h-5" />
+            <h1 className="flex items-center text-2xl font-bold text-primary">
+              <span className="mr-2 rounded-lg bg-primary/10 p-2">
+                <HardHat className="h-5 w-5" />
               </span>
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 RAMANI
@@ -39,12 +54,12 @@ export default function DashboardHeader({ name, role }) {
           <div className="flex items-center space-x-3 sm:space-x-5">
             {/* Cart Button */}
             <button
-              className="p-2 relative text-gray-500 hover:text-primary transition-colors"
+              className="relative p-2 text-gray-500 transition-colors hover:text-primary"
               aria-label="Cart"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="h-5 w-5" />
               {cartItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-bounce">
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 animate-bounce items-center justify-center rounded-full bg-accent text-xs text-white">
                   {cartItems}
                 </span>
               )}
@@ -52,12 +67,12 @@ export default function DashboardHeader({ name, role }) {
 
             {/* Notifications Button */}
             <button
-              className="p-2 relative text-gray-500 hover:text-primary transition-colors"
+              className="relative p-2 text-gray-500 transition-colors hover:text-primary"
               aria-label="Notifications"
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="h-5 w-5" />
               {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 animate-pulse items-center justify-center rounded-full bg-red-500 text-xs text-white">
                   {notifications}
                 </span>
               )}
@@ -69,16 +84,16 @@ export default function DashboardHeader({ name, role }) {
                 <>
                   <Popover.Button
                     className={`flex items-center space-x-2 focus:outline-none ${
-                      open ? "ring-2 ring-primary/50 rounded-full pr-2" : ""
+                      open ? "rounded-full pr-2 ring-2 ring-primary/50" : ""
                     }`}
                   >
                     <div className="relative">
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center overflow-hidden">
+                      <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent">
                         {photo && photo !== "default.jpg" ? (
                           <img
-                            src={`${imgUrl}/users/${photo}`}
+                            src={`${imageUrl}/users/${photo}`}
                             alt={name}
-                            className="w-full h-full object-cover"
+                            className="h-full w-full object-cover"
                             onError={(e) => {
                               e.target.onerror = null;
                               e.target.parentElement.innerHTML = name
@@ -87,18 +102,18 @@ export default function DashboardHeader({ name, role }) {
                             }}
                           />
                         ) : (
-                          <span className="text-white font-medium">
+                          <span className="font-medium text-white">
                             {name.charAt(0).toUpperCase()}
                           </span>
                         )}
                       </div>
-                      <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
+                      <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500"></span>
                     </div>
-                    <div className="hidden md:block text-left">
-                      <p className="text-sm font-medium text-gray-800 truncate max-w-[120px]">
+                    <div className="hidden text-left md:block">
+                      <p className="max-w-[120px] truncate text-sm font-medium text-gray-800">
                         {name}
                       </p>
-                      <p className="text-xs text-gray-500 capitalize">{role}</p>
+                      <p className="text-xs capitalize text-gray-500">{role}</p>
                     </div>
                   </Popover.Button>
 
@@ -116,7 +131,7 @@ export default function DashboardHeader({ name, role }) {
                         <p className="text-sm font-medium text-gray-900">
                           {name}
                         </p>
-                        <p className="text-xs text-gray-500 truncate capitalize">
+                        <p className="truncate text-xs capitalize text-gray-500">
                           {role}
                         </p>
                       </div>
@@ -125,14 +140,14 @@ export default function DashboardHeader({ name, role }) {
                           href="#"
                           className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          <UserCircle className="w-4 h-4 mr-2" />
+                          <UserCircle className="mr-2 h-4 w-4" />
                           View Profile
                         </a>
                         <a
                           href="#"
                           className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          <Edit2 className="w-4 h-4 mr-2" />
+                          <Edit2 className="mr-2 h-4 w-4" />
                           Edit Profile
                         </a>
                       </div>
@@ -141,7 +156,7 @@ export default function DashboardHeader({ name, role }) {
                           onClick={logout}
                           className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
                         >
-                          <LogOut className="w-4 h-4 mr-2" />
+                          <LogOut className="mr-2 h-4 w-4" />
                           Sign out
                         </button>
                       </div>

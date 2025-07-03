@@ -1,6 +1,14 @@
-import { CircleCheck, MapPin } from "lucide-react";
+import { CircleCheck, HandCoins, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function HardwareCard({ hardware }) {
+  const coord = hardware.coordinates.coordinates;
+  const handleGetDirections = () => {
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${coord[0]},${coord[1]}`,
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4 rounded-md border border-accent bg-white p-4 shadow-lg">
       <div className="w-full border-b border-gray-400 border-opacity-30">
@@ -14,41 +22,42 @@ export default function HardwareCard({ hardware }) {
             <MapPin className="h-5 w-5" />
           </span>
           <p className="text-[#000000]">
-            {hardware.address.street},{hardware.address.region}
+            {hardware.address.street}, {hardware.address.region}
           </p>
+        </div>
+        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
+          <span className="font-bold text-[#781717] opacity-85">
+            <Phone className="h-5 w-5" />
+          </span>
+          <p className="text-[#000000]">{hardware.phone}</p>
         </div>
         <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
           <span className="font-bold text-[#781717] opacity-85">
             <CircleCheck className="h-5 w-5" />
           </span>
-          <p className="text-[#000000]">{hardware.status}</p>
-        </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
-            <HandCoins className="h-5 w-5" />
-          </span>
-          <p className="text-[#000000]">{hardware.paymentPerDay}</p>
+          <p className="text-[#000000]">
+            {hardware.status.charAt(0).toUpperCase() + hardware.status.slice(1)}
+          </p>
         </div>
       </div>
 
       <div>
         <p className="md:text-md line-clamp-2 text-sm italic leading-6 tracking-wide text-[#33401C]">
-          {application.description}
+          {hardware.description}
         </p>
       </div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 flex flex-col justify-between gap-3 md:flex-row md:items-center">
         <Link
-          to=""
-          className="hover:text-md text-sm font-bold text-[#33401C] underline hover:opacity-80"
-          onClick={handleOpenModal}
+          to={`${hardware._id}/products`}
+          className="hover:text-md text-base font-bold text-[#33401C] underline hover:opacity-80"
         >
-          View Details
+          Explore Products
         </Link>
         <button
-          className="text-md rounded-full border border-red-600 bg-white px-6 py-1 font-semibold text-[#811818] hover:border-none hover:bg-warning hover:text-white hover:shadow-lg"
-          onClick={() => handleDeleteApplication(app._id)}
+          className="text-md border-2 border-[#811818] bg-white px-6 py-1 font-semibold text-[#811818]"
+          onClick={handleGetDirections}
         >
-          Delete
+          Get Directions
         </button>
       </div>
     </div>
