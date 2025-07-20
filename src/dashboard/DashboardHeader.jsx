@@ -7,32 +7,19 @@ import {
   Edit2,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { apiUrl, imageUrl } from "../utils/utils";
-import axios from "axios";
+import { imageUrl } from "../utils/utils";
+import useCartItems from "../hooks/useCartItems";
+import { Link } from "react-router-dom";
 
 export default function DashboardHeader({ name, role }) {
   const [notifications] = useState(3);
   const { logout, user } = useAuth();
-  const [cartItems, setCartItems] = useState(0);
+  const { cartItems } = useCartItems();
   const { photo } = user.data;
-
-  useEffect(() => {
-    const getCarts = async () => {
-      try {
-        const res = await axios.get(`${apiUrl}/carts/getMyCarts`, {
-          withCredentials: true,
-        });
-        setCartItems(res.data.data.length);
-      } catch (err) {
-        console.error(err?.response?.data?.message);
-      }
-    };
-
-    getCarts();
-  }, []);
+  // console.log(cartItems);
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
@@ -53,17 +40,18 @@ export default function DashboardHeader({ name, role }) {
           {/* Right Side Controls */}
           <div className="flex items-center space-x-3 sm:space-x-5">
             {/* Cart Button */}
-            <button
+            <Link
+              to="/dashboard/cart"
               className="relative p-2 text-gray-500 transition-colors hover:text-primary"
               aria-label="Cart"
             >
               <ShoppingCart className="h-5 w-5" />
-              {cartItems > 0 && (
+              {cartItems?.data.length > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 w-5 animate-bounce items-center justify-center rounded-full bg-accent text-xs text-white">
-                  {cartItems}
+                  {cartItems.data.length}
                 </span>
               )}
-            </button>
+            </Link>
 
             {/* Notifications Button */}
             <button

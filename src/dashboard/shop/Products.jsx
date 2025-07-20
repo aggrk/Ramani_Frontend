@@ -1,18 +1,18 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiUrl } from "../../utils/utils";
-import useGet from "../../hooks/useGet";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import NoData from "../../components/NoData";
 import ProductCard from "./ProductCard";
+import useFetch from "../../hooks/useFetch";
 
 export default function Products() {
   const { id } = useParams();
-  const { data, isLoading } = useGet(`${apiUrl}/hardware/${id}/products`);
-  const products = data?.products || [];
+  const { data, isPending, isError } = useFetch(
+    "products",
+    `/hardware/${id}/products`,
+  );
+  const products = data?.data?.products;
 
-  if (isLoading || data === null)
+  if (isPending)
     return (
       <div className="flex h-screen items-center justify-center">
         <ActivityIndicator size="lg" />

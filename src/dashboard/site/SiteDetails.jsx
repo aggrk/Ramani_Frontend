@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import {
   MapPin,
@@ -16,49 +15,32 @@ import "leaflet/dist/leaflet.css";
 import toast from "react-hot-toast";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import { formatDate } from "../../utils/utils";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import useFetch from "../../hooks/useFetch";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "../../utils/api";
 
 export default function SiteDetails() {
-  const [selectedSite, setSelectedSite] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [userLocation, setUserLocation] = useState("");
-  const [isApplying, setIsApplying] = useState(false);
   const { id } = useParams();
+  const { data, isPending, isError } = useFetch("site", `/sites/${id}`);
+  const [userLocation, setUserLocation] = useState("");
+  const selectedSite = data?.data?.site;
 
   const coord = selectedSite?.coordinates?.coordinates;
-
-  useEffect(() => {
-    const getSite = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(`${apiUrl}/sites/${id}`, {
-          withCredentials: true,
-        });
-        setSelectedSite(res.data.data.site);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getSite();
-  }, [id]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLocation(
-          {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          },
-          (err) => {
-            console.error("Error getting user Location: ", err);
-          },
-        );
-      });
+          });
+        },
+        (err) => {
+          console.error("Error getting user location: ", err);
+        },
+      );
     } else {
       console.error("Geolocation not supported in this browser");
     }
@@ -70,34 +52,22 @@ export default function SiteDetails() {
     );
   };
 
-  const handleApply = async () => {
-    try {
-      setIsApplying(true);
-      const res = await axios.post(
-        `${apiUrl}/sites/${id}/applications`,
-        {},
-        {
-          withCredentials: true,
-        },
-      );
-
-      if (res.status === 201)
-        toast.success(
-          "Your application was successfull! We will get bask to you soon!",
-        );
-    } catch (err) {
-      console.log(err?.response?.data?.message);
-      toast.error(err?.response?.data?.message);
-    } finally {
-      setIsApplying(false);
-    }
-  };
+  const mutation = useMutation({
+    mutationFn: () => api.post(`/sites/${id}/applications`, {}),
+    onSuccess: () => {
+      (toast.success(
+        "Your application was successfull! We will get bask to you soon!",
+      ),
+        queryClient.invalidateQueries(["applications"]));
+    },
+    onError: (err) => toast.error(err?.response?.data?.message),
+  });
 
   return (
     <div className="min-h-screen bg-neutral">
-      {isLoading ? (
+      {isPending ? (
         <div className="flex h-screen items-center justify-center">
-          <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-primary" />
+          <ActivityIndicator size="lg" />
         </div>
       ) : selectedSite ? (
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -122,11 +92,11 @@ export default function SiteDetails() {
                   </p>
                 </div>
                 <button
-                  disabled={isApplying}
+                  disabled={mutation.isPending}
                   className="flex items-center gap-2 self-start rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:self-auto md:py-3 lg:text-base"
-                  onClick={handleApply}
+                  onClick={() => mutation.mutate()}
                 >
-                  {isApplying ? (
+                  {mutation.isPending ? (
                     <ActivityIndicator size="xs" />
                   ) : (
                     <>
@@ -334,9 +304,9 @@ export default function SiteDetails() {
                 </p>
                 <button
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-white py-3 font-semibold text-primary transition-all hover:bg-accent"
-                  onClick={handleApply}
+                  onClick={() => mutation.mutate()}
                 >
-                  {isApplying ? (
+                  {mutation.isPending ? (
                     <ActivityIndicator size="xs" />
                   ) : (
                     <>

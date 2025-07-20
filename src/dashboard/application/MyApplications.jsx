@@ -1,48 +1,16 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import AppCard from "./AppCard";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import { Link } from "react-router-dom";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import useFetch from "../../hooks/useFetch";
 
 export default function MyApplications() {
-  const [applications, setApplications] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isPending, isError } = useFetch(
+    "applications",
+    "/applications/getMyApplications",
+  );
+  const applications = data?.data?.applications || [];
 
-  useEffect(() => {
-    const getApplications = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(
-          `${apiUrl}/applications/getMyApplications`,
-          {
-            withCredentials: true,
-          },
-        );
-
-        setApplications(res?.data?.data?.applications);
-      } catch (err) {
-        console.log(`Error: ${err.response?.data?.message}`);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getApplications();
-  }, []);
-
-  const handleDeleteApplication = async (id) => {
-    try {
-      setApplications(applications.filter((app) => app._id !== id) || []);
-      await axios.delete(`${apiUrl}/applications/${id}`, {
-        withCredentials: true,
-      });
-    } catch (err) {
-      console.log(err?.response?.data?.message);
-    }
-  };
-
-  if (isLoading)
+  if (isPending)
     return (
       <div className="flex h-screen items-center justify-center">
         <ActivityIndicator size="lg" />
@@ -58,11 +26,7 @@ export default function MyApplications() {
           </h1>
           <div className="w-ful flex flex-col gap-5">
             {applications?.map((app) => (
-              <AppCard
-                key={app._id}
-                app={app}
-                handleDeleteApplication={handleDeleteApplication}
-              />
+              <AppCard key={app._id} app={app} />
             ))}
           </div>
         </>

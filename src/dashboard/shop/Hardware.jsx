@@ -1,17 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import HardwareCard from "./HardwareCard";
-import { Link } from "react-router-dom";
-import useGet from "../../hooks/useGet";
-import { apiUrl } from "../../utils/utils";
 import NoData from "../../components/NoData";
+import useFetch from "../../hooks/useFetch";
 
 export default function Hardware() {
-  const { data, isLoading } = useGet(`${apiUrl}/hardware`);
-  const hardware = data?.hardware || [];
+  const { data, isPending, isError, error } = useFetch("hardware", `/hardware`);
+  const hardware = data?.data?.hardware || [];
 
-  if (isLoading || data === null)
+  if (isPending)
     return (
       <div className="flex h-screen items-center justify-center">
         <ActivityIndicator size="lg" />

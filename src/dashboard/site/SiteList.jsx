@@ -1,52 +1,23 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Search, Filter, HardHat } from "lucide-react";
+import { useEffect, useState, useMemo } from "react";
+import { Search, Filter } from "lucide-react";
 import SiteCard from "./SiteCard";
-import { useTimedMessage } from "../../hooks/useTimedMessage";
-import axios from "axios";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import useFetch from "../../hooks/useFetch";
 
 export default function SiteList() {
-  const [sites, setSites] = useState([]);
-  const [filteredSites, setFilteredSites] = useState([]);
+  const { data, isPending, isError, error } = useFetch("sites", "/sites");
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useTimedMessage("", 5000);
-  const navigate = useNavigate();
+  const sites = data?.data?.sites || [];
 
-  useEffect(() => {
-    const getSites = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(`${apiUrl}/sites`, {
-          withCredentials: true,
-        });
-        console.log(res.data);
-        setSites(res.data.data.sites);
-      } catch (err) {
-        console.error(err);
-        setError(err.response?.data?.message || "Failed to load sites");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getSites();
-  }, []);
-
-  useEffect(() => {
+  const filteredSites = useMemo(() => {
     if (searchTerm.trim() === "") {
-      setFilteredSites(sites);
-    } else {
-      const filtered = sites.filter(
-        (site) =>
-          site.siteTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (site.location &&
-            site.location.toLowerCase().includes(searchTerm.toLowerCase())),
-      );
-      setFilteredSites(filtered);
+      return sites;
     }
+    return sites.filter(
+      (site) =>
+        site.siteTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (site.location &&
+          site.location.toLowerCase().includes(searchTerm.toLowerCase())),
+    );
   }, [searchTerm, sites]);
 
   return (
@@ -69,13 +40,13 @@ export default function SiteList() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   aria-label="Search construction sites"
-                  disabled={isLoading}
+                  disabled={isPending}
                 />
               </div>
               <button
                 className="flex items-center justify-center gap-2 rounded-lg border border-accent/20 bg-white px-4 py-2 hover:bg-neutral/5"
                 aria-label="Filter sites"
-                disabled={isLoading}
+                disabled={isPending}
               >
                 <Filter className="h-4 w-4" />
                 <span>Filters</span>
@@ -84,13 +55,13 @@ export default function SiteList() {
           </div>
 
           {/* Loading and Error States */}
-          {isLoading && (
+          {isPending && (
             <div className="flex justify-center py-8">
               <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-primary"></div>
             </div>
           )}
 
-          {error && (
+          {isError && (
             <div className="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
               {error}
             </div>
@@ -98,11 +69,12 @@ export default function SiteList() {
 
           {/* Site Cards */}
           <div className="mt-6 space-y-4">
-            {!isLoading && filteredSites.length > 0
+            {!isPending && !isError && filteredSites.length > 0
               ? filteredSites.map((site) => (
                   <SiteCard key={site._id || site.id} site={site} />
                 ))
-              : !isLoading && (
+              : !isPending &&
+                !isError && (
                   <div className="py-8 text-center">
                     <p className="text-textlight">
                       {searchTerm.trim()

@@ -18,6 +18,9 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { formatDate } from "../../utils/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import api from "../../utils/api";
 
 const customStyles = {
   content: {
@@ -46,11 +49,24 @@ const customStyles = {
 
 Modal.setAppElement("div");
 
-export default function AppCard({ app, handleDeleteApplication }) {
+export default function AppCard({ app }) {
   const [userLocation, setUserLocation] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const application = app.siteId;
   const coord = application.coordinates.coordinates;
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: () => api.delete(`/applications/${app._id}`),
+    onSuccess: () => {
+      toast.success("Application deleted succesfully!");
+      queryClient.invalidateQueries(["applications"]);
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -248,7 +264,7 @@ export default function AppCard({ app, handleDeleteApplication }) {
         </Link>
         <button
           className="text-md rounded-full border border-red-600 bg-white px-6 py-1 font-semibold text-[#811818] hover:border-none hover:bg-warning hover:text-white hover:shadow-lg"
-          onClick={() => handleDeleteApplication(app._id)}
+          onClick={() => mutation.mutate()}
         >
           Delete
         </button>

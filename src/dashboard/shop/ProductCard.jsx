@@ -1,62 +1,29 @@
 import { ShoppingCart } from "lucide-react";
-import { apiUrl, imageUrl } from "../../utils/utils";
+import { imageUrl } from "../../utils/utils";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import ActivityIndicator from "../../components/ActivityIndicator";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "../../utils/api";
+import useCartItems from "../../hooks/useCartItems";
 
 export default function ProductCard({ product }) {
-  const [addingToCart, setAddingToCart] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [carts, setCarts] = useState(null);
-  const exists = carts?.find((cart) => cart.productId === product._id);
+  const { cartItems, isPending, isError } = useCartItems();
+  const exists = cartItems?.data.find((cart) => cart.productId === product._id);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const getCarts = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(`${apiUrl}/carts/getMyCarts`, {
-          withCredentials: true,
-        });
-        setCarts(res.data.data);
-      } catch (err) {
-        console.error(err?.response?.data?.message);
-        toast.error("Failed to load cart data");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const mutation = useMutation({
+    mutationFn: () => {
+      return api.post(`/products/${product._id}/carts`);
+    },
+    onSuccess: () => {
+      toast.success("Product added to cart");
+      queryClient.invalidateQueries(["carts"]);
+    },
+    onError: (err) => toast.error(err?.message || "Failed to add to cart"),
+  });
 
-    getCarts();
-  }, []);
-
-  const handleAddToCart = async () => {
-    if (addingToCart) return; // Prevent multiple clicks
-    setAddingToCart(true);
-    try {
-      const res = await axios.post(
-        `${apiUrl}/products/${product._id}/carts`,
-        {},
-        { withCredentials: true },
-      );
-      if (res.status === 201) {
-        toast.success("Product added to cart");
-        // Refetch carts to update the UI
-        const cartRes = await axios.get(`${apiUrl}/carts/getMyCarts`, {
-          withCredentials: true,
-        });
-        setCarts(cartRes.data.data);
-      }
-    } catch (err) {
-      console.error(err?.response?.data?.message);
-      toast.error(err?.response?.data?.message || "Failed to add to cart");
-    } finally {
-      setAddingToCart(false);
-    }
-  };
-
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="flex h-48 items-center justify-center rounded-xl bg-[#FFFFFF] p-3 shadow-lg">
         <ActivityIndicator size="md" />
@@ -102,11 +69,11 @@ export default function ProductCard({ product }) {
         ) : (
           <button
             className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-[#811818] py-2 text-base font-bold text-[#FFFFFF] shadow-md transition-colors hover:bg-[#6b1414] disabled:opacity-50"
-            onClick={handleAddToCart}
-            disabled={addingToCart}
+            onClick={() => mutation.mutate()}
+            disabled={mutation.isPending}
             aria-label="Add to cart"
           >
-            {addingToCart ? (
+            {mutation.isPending ? (
               <ActivityIndicator size="sm" />
             ) : (
               <>
