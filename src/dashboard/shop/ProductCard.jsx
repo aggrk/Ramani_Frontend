@@ -9,12 +9,19 @@ import useCartItems from "../../hooks/useCartItems";
 
 export default function ProductCard({ product }) {
   const { cartItems, isPending, isError } = useCartItems();
-  const exists = cartItems?.data.find((cart) => cart.productId === product._id);
+  const exists = cartItems?.data.find((cart) => {
+    const id = cart.productId._id;
+    return id === product._id;
+  });
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => {
-      return api.post(`/products/${product._id}/carts`);
+    mutationFn: async () => {
+      const response = await api.post(`/products/${product._id}/carts`);
+      if (!response.statusText === "OK") {
+        toast.error("Failed to add to cart");
+      }
+      return response.data;
     },
     onSuccess: () => {
       toast.success("Product added to cart");
@@ -22,6 +29,14 @@ export default function ProductCard({ product }) {
     },
     onError: (err) => toast.error(err?.message || "Failed to add to cart"),
   });
+
+  const handleAddToCart = () => {
+    if (exists) {
+      toast.warning("Product already in cart");
+      return;
+    }
+    mutation.mutate();
+  };
 
   if (isPending) {
     return (
@@ -69,7 +84,7 @@ export default function ProductCard({ product }) {
         ) : (
           <button
             className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-[#811818] py-2 text-base font-bold text-[#FFFFFF] shadow-md transition-colors hover:bg-[#6b1414] disabled:opacity-50"
-            onClick={() => mutation.mutate()}
+            onClick={handleAddToCart}
             disabled={mutation.isPending}
             aria-label="Add to cart"
           >
