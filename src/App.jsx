@@ -16,6 +16,7 @@ import Hardware from "./dashboard/shop/Hardware";
 import Products from "./dashboard/shop/Products";
 import ProductDetails from "./dashboard/shop/ProductDetails";
 import Cart from "./dashboard/cart/Cart";
+import UpdateProfile from "./dashboard/user/UpdateProfile";
 
 export default function App() {
   return (
@@ -27,7 +28,10 @@ export default function App() {
         </Route>
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile">
+            <Route index element={<Profile />} />
+            <Route path="update/:field" element={<UpdateProfile />} />
+          </Route>
           <Route path="sites" element={<SiteList />} />
           <Route path="sites/:id" element={<SiteDetails />} />
           <Route path="applications" element={<MyApplications />} />

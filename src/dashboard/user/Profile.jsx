@@ -1,49 +1,14 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import ActivityIndicator from "../../components/ActivityIndicator";
+import { Link } from "react-router-dom";
+import UpdatePassword from "./UpdatePassword";
 
 const imgUrl = import.meta.env.VITE_IMG_URL;
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Profile() {
   const [updatePassword, setUpdatePassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
-  const fileInputRef = useRef(null);
-  const { register, handleSubmit, formState: errors } = useForm();
-
   const { name, email, phone, photo, status } = user?.data;
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const onSubmit = async (data) => {
-    try {
-      setIsLoading(true);
-      await axios.patch(`${apiUrl}/users/updateMe`, data, {
-        withCredentials: true,
-      });
-    } catch (err) {
-      console.log(err.response?.data?.message || "Updating user failed");
-      throw new Error(err.response?.data?.message || "Updating user failed");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
 
   return (
     <div className="min-h-screen py-12">
@@ -58,10 +23,7 @@ export default function Profile() {
           {/* Left Column - Profile Card */}
           <div className="h-fit rounded-xl bg-white p-4 shadow-lg transition-all duration-300 hover:shadow-xl sm:p-6 lg:sticky lg:top-8">
             <div className="mb-4 flex flex-col items-center sm:mb-6">
-              <div
-                className="group relative mb-3 flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#F3E9D9] sm:mb-4 sm:h-36 sm:w-36 md:h-40 md:w-40"
-                onClick={triggerFileInput}
-              >
+              <div className="group relative mb-3 flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#F3E9D9] sm:mb-4 sm:h-36 sm:w-36 md:h-40 md:w-40">
                 {photo ? (
                   <img
                     src={`${imgUrl}/users/${photo}`}
@@ -106,13 +68,7 @@ export default function Profile() {
                     </div>
                   </>
                 )}
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageChange}
-                  className="hidden"
-                  accept="image/*"
-                />
+                <input type="file" className="hidden" accept="image/*" />
               </div>
               <h2 className="text-center text-lg font-bold text-[#1A1A1A] sm:text-xl lg:text-2xl">
                 {name}
@@ -120,10 +76,7 @@ export default function Profile() {
               <p className="text-center text-sm font-medium text-[#556B2F] sm:text-base lg:text-lg">
                 {email}
               </p>
-              <button
-                onClick={triggerFileInput}
-                className="mt-2 text-sm font-medium text-[#B22222] transition-colors duration-200 hover:text-[#9B1C1C] sm:mt-3 sm:text-base lg:text-lg"
-              >
+              <button className="mt-2 text-sm font-medium text-[#B22222] transition-colors duration-200 hover:text-[#9B1C1C] sm:mt-3 sm:text-base lg:text-lg">
                 Change Photo
               </button>
             </div>
@@ -157,103 +110,33 @@ export default function Profile() {
                 </h2>
                 <div className="h-1 w-8 rounded-full bg-[#B22222] sm:w-10 md:w-12"></div>
               </div>
-              <form
-                className="space-y-4 sm:space-y-5"
-                onSubmit={handleSubmit(onSubmit)}
+              <Link
+                to="update/name"
+                className="shadow- mb-4 flex flex-col gap-1 rounded-md bg-neutral px-4 py-2"
               >
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    placeholder={name}
-                    {...register("name", { required: true })}
-                    className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                  />
-                  {errors.name && (
-                    <span className="text-xs text-red-500">
-                      {errors.name.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder={email}
-                    {...register("email", {
-                      required: { value: true, message: "Email is required" },
-                      pattern: {
-                        value:
-                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: "Invalid email address",
-                      },
-                    })}
-                    className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                  />
-                  {errors.email && (
-                    <span className="text-xs text-red-500">
-                      {errors.email.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    placeholder={phone}
-                    {...register("phone", {
-                      required: { value: true, message: "Phone is required" },
-                      pattern: {
-                        value: /^(0|\+255)[0-9]{9}$/,
-                        message: "Invalid phone number",
-                      },
-                      validate: (value) => {
-                        const cleanValue = value.replace(/\s/g, "");
-                        return (
-                          /^(0|\+255)[0-9]{9}$/.test(cleanValue) ||
-                          "Invalid phone number format"
-                        );
-                      },
-                    })}
-                    className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                  />
-                  {errors.phone && (
-                    <span className="text-xs text-red-500">
-                      {errors.phone.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="rounded-lg bg-[#B22222] px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-[#9B1C1C] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#B22222] focus:ring-opacity-50 sm:px-6 sm:py-3 sm:text-base lg:text-lg"
-                  >
-                    {isLoading ? (
-                      <ActivityIndicator size="xs" />
-                    ) : (
-                      "Save Changes"
-                    )}
-                  </button>
-                </div>
-              </form>
+                <h3 htmlFor="name" className="">
+                  Full Name
+                </h3>
+                <p className="text- text-light text-sm opacity-50">{name}</p>
+              </Link>
+              <Link
+                to="update/email"
+                className="shadow- mb-4 flex flex-col gap-1 rounded-md bg-neutral px-4 py-2"
+              >
+                <label htmlFor="email" className="">
+                  Email Address
+                </label>
+                <p className="text- text-light text-sm opacity-50">{email}</p>
+              </Link>
+              <Link
+                to="update/phone"
+                className="shadow- mb-4 flex flex-col gap-1 rounded-md bg-neutral px-4 py-2"
+              >
+                <label htmlFor="phone" className="">
+                  Phone Number
+                </label>
+                <p className="text- text-light text-sm opacity-50">{phone}</p>
+              </Link>
             </div>
 
             {/* Password Update Section */}
@@ -265,67 +148,7 @@ export default function Profile() {
                 <div className="h-1 w-8 rounded-full bg-[#556B2F] sm:w-10 md:w-12"></div>
               </div>
               {updatePassword ? (
-                <form className="space-y-4 sm:space-y-5">
-                  <div>
-                    <label
-                      htmlFor="currentPassword"
-                      className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                    >
-                      Current Password
-                    </label>
-                    <input
-                      type="password"
-                      id="currentPassword"
-                      placeholder="••••••••"
-                      className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4 sm:gap-5">
-                    <div>
-                      <label
-                        htmlFor="newPassword"
-                        className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                      >
-                        New Password
-                      </label>
-                      <input
-                        type="password"
-                        id="newPassword"
-                        placeholder="••••••••"
-                        className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="confirmPassword"
-                        className="mb-1 block text-xs font-medium text-[#555] sm:mb-2 sm:text-sm lg:text-base"
-                      >
-                        Confirm Password
-                      </label>
-                      <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="••••••••"
-                        className="w-full rounded-lg border border-[#E8D9C5] px-3 py-2 text-sm transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#B22222] sm:px-4 sm:py-3 sm:text-base lg:text-lg"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-end space-x-3 sm:space-x-4">
-                    <button
-                      type="button"
-                      onClick={() => setUpdatePassword(false)}
-                      className="rounded-lg border border-[#E8D9C5] bg-transparent px-4 py-2 text-sm font-medium text-[#555] transition-all duration-300 hover:bg-[#F8F8F8] focus:outline-none focus:ring-2 focus:ring-[#E8D9C5] sm:px-6 sm:py-3 sm:text-base lg:text-lg"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="rounded-lg bg-[#556B2F] px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-[#465827] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#556B2F] focus:ring-opacity-50 sm:px-6 sm:py-3 sm:text-base lg:text-lg"
-                    >
-                      Update Password
-                    </button>
-                  </div>
-                </form>
+                <UpdatePassword setUpdatePassword={setUpdatePassword} />
               ) : (
                 <div className="space-y-4 sm:space-y-5">
                   <p className="text-sm text-[#555] sm:text-base lg:text-lg">
