@@ -18,12 +18,16 @@ import { formatDate } from "../../utils/utils";
 import useFetch from "../../hooks/useFetch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../utils/api";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function SiteDetails() {
   const { id } = useParams();
+  const { user } = useAuth();
+  const { role } = user?.data;
   const { data, isPending, isError } = useFetch("site", `/sites/${id}`);
   const [userLocation, setUserLocation] = useState("");
   const selectedSite = data?.data?.site;
+  console.log(data);
 
   const coord = selectedSite?.coordinates?.coordinates;
   const queryClient = useQueryClient();
@@ -63,13 +67,22 @@ export default function SiteDetails() {
     onError: (err) => toast.error(err?.response?.data?.message),
   });
 
+  const deleteSite = useMutation({
+    mutationFn: () => api.delete(`/sites/${id}`, {}),
+    onSuccess: () => {
+      (toast.success("Site deleted succesfully"),
+        queryClient.invalidateQueries(["sites"]));
+    },
+    onError: (err) => toast.error(err?.response?.data?.message),
+  });
+
   return (
     <div className="min-h-screen bg-neutral">
       {isPending ? (
         <div className="flex h-screen items-center justify-center">
           <ActivityIndicator size="lg" />
         </div>
-      ) : selectedSite ? (
+      ) : selectedSite.length > 0 ? (
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header Section */}
           <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-white shadow-lg">
@@ -91,20 +104,35 @@ export default function SiteDetails() {
                     {selectedSite.description}
                   </p>
                 </div>
-                <button
-                  disabled={mutation.isPending}
-                  className="flex items-center gap-2 self-start rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:self-auto md:py-3 lg:text-base"
-                  onClick={() => mutation.mutate()}
-                >
-                  {mutation.isPending ? (
-                    <ActivityIndicator size="xs" />
-                  ) : (
-                    <>
-                      <HardHat className="h-5 w-5" />
-                      <span>Apply Now</span>
-                    </>
-                  )}
-                </button>
+                {role === "engineer" && (
+                  <button
+                    disabled={deleteSite.isPending}
+                    className="flex items-center gap-2 self-start rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:self-auto md:py-3 lg:text-base"
+                    onClick={() => deleteSite.mutate()}
+                  >
+                    {deleteSite.isPending ? (
+                      <ActivityIndicator size="xs" />
+                    ) : (
+                      <span>Delete Site</span>
+                    )}
+                  </button>
+                )}
+                {role === "user" && (
+                  <button
+                    disabled={mutation.isPending}
+                    className="flex items-center gap-2 self-start rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:self-auto md:py-3 lg:text-base"
+                    onClick={() => mutation.mutate()}
+                  >
+                    {mutation.isPending ? (
+                      <ActivityIndicator size="xs" />
+                    ) : (
+                      <>
+                        <HardHat className="h-5 w-5" />
+                        <span>Apply Now</span>
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
 
@@ -131,7 +159,7 @@ export default function SiteDetails() {
                   <div>
                     <p className="text-sm text-secondary">Daily Rate</p>
                     <p className="text-sm font-semibold text-textdark sm:text-base">
-                      ${selectedSite.paymentPerDay}
+                      {selectedSite.paymentPerDay}
                     </p>
                   </div>
                 </div>
@@ -258,7 +286,7 @@ export default function SiteDetails() {
                           Payment
                         </p>
                         <p className="text-xs text-textdark sm:text-sm">
-                          ${selectedSite.paymentPerDay} per day
+                          {selectedSite.paymentPerDay} per day
                         </p>
                       </div>
                     </li>
@@ -295,27 +323,29 @@ export default function SiteDetails() {
               </div>
 
               {/* CTA Card */}
-              <div className="overflow-hidden rounded-2xl bg-primary p-6 text-white shadow-lg">
-                <h3 className="mb-3 text-lg font-semibold">
-                  Interested in this project?
-                </h3>
-                <p className="mb-6 text-accent">
-                  Apply now to join our team of skilled professionals.
-                </p>
-                <button
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-white py-3 font-semibold text-primary transition-all hover:bg-accent"
-                  onClick={() => mutation.mutate()}
-                >
-                  {mutation.isPending ? (
-                    <ActivityIndicator size="xs" />
-                  ) : (
-                    <>
-                      <HardHat className="h-5 w-5" />
-                      <span>Apply Now</span>
-                    </>
-                  )}
-                </button>
-              </div>
+              {role === "user" && (
+                <div className="overflow-hidden rounded-2xl bg-primary p-6 text-white shadow-lg">
+                  <h3 className="mb-3 text-lg font-semibold">
+                    Interested in this project?
+                  </h3>
+                  <p className="mb-6 text-accent">
+                    Apply now to join our team of skilled professionals.
+                  </p>
+                  <button
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-white py-3 font-semibold text-primary transition-all hover:bg-accent"
+                    onClick={() => mutation.mutate()}
+                  >
+                    {mutation.isPending ? (
+                      <ActivityIndicator size="xs" />
+                    ) : (
+                      <>
+                        <HardHat className="h-5 w-5" />
+                        <span>Apply Now</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

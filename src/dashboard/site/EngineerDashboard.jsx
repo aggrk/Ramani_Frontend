@@ -4,6 +4,7 @@ import {
   ChevronRight,
   FileText,
   HardHat,
+  Plus,
   Search,
   SettingsIcon,
   Truck,
@@ -73,6 +74,12 @@ export default function EngineerDashboard() {
     {
       title: "Applications",
       icon: <FileText className="h-6 w-6" />,
+      link: "applications",
+      color: "text-primary",
+    },
+    {
+      title: "Add Site",
+      icon: <Plus className="h-6 w-6" />,
       link: "applications",
       color: "text-primary",
     },

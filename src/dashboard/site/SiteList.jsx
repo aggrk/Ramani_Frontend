@@ -1,12 +1,19 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Search, Filter } from "lucide-react";
 import SiteCard from "./SiteCard";
 import useFetch from "../../hooks/useFetch";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function SiteList() {
-  const { data, isPending, isError, error } = useFetch("sites", "/sites");
+  const { user } = useAuth();
+  const { role } = user?.data;
+  const { data, isPending, isError, error } = useFetch(
+    "sites",
+    `${role === "engineer" ? "/sites/getMySites" : "/sites"}`,
+  );
   const [searchTerm, setSearchTerm] = useState("");
-  const sites = data?.data?.sites || [];
+  const sites =
+    role === "engineer" ? data?.data?.site : data?.data?.sites || [];
 
   const filteredSites = useMemo(() => {
     if (searchTerm.trim() === "") {
@@ -61,11 +68,11 @@ export default function SiteList() {
             </div>
           )}
 
-          {isError && (
+          {/* {isError && (
             <div className="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
-              {error}
+              {error.message}
             </div>
-          )}
+          )} */}
 
           {/* Site Cards */}
           <div className="mt-6 space-y-4">
