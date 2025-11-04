@@ -17,6 +17,7 @@ import Products from "./dashboard/shop/Products";
 import ProductDetails from "./dashboard/shop/ProductDetails";
 import Cart from "./dashboard/cart/Cart";
 import UpdateProfile from "./dashboard/user/UpdateProfile";
+import AddSite from "./dashboard/site/AddSite";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="sites" element={<SiteList />} />
           <Route path="sites/:id" element={<SiteDetails />} />
           <Route path="applications" element={<MyApplications />} />
+          <Route path="add-site" element={<AddSite />} />
           <Route path="hardware">
             <Route index element={<Hardware />} />
             <Route path=":id">

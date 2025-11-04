@@ -80,7 +80,7 @@ export default function EngineerDashboard() {
     {
       title: "Add Site",
       icon: <Plus className="h-6 w-6" />,
-      link: "applications",
+      link: "add-site",
       color: "text-primary",
     },
     {
