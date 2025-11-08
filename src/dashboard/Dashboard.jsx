@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { engineerActions, hardwareActions, userActions } from "../utils/data";
 import UserDashboard from "./user/UserDashboard";
 import EngineerDashboard from "./site/EngineerDashboard";
+import HardwareDashboard from "./hardware/HardwareDashboard";
 
 export default function Dashboard() {
   const { user } = useAuth();

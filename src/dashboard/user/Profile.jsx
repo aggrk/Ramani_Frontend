@@ -13,7 +13,12 @@ export default function Profile() {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
   const { user, setUser } = useAuth();
-  const { name, email, phone, photo, status } = user?.data;
+  const { name, email, phone, photo, status, createdAt } = user?.data;
+  const memberSince = new Date(createdAt).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "2-digit",
+  });
 
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
@@ -154,7 +159,7 @@ export default function Profile() {
                   Member since:
                 </span>
                 <span className="text-xs font-medium text-[#333] sm:text-sm lg:text-base">
-                  Jan 15, 2023
+                  {memberSince}
                 </span>
               </div>
             </div>

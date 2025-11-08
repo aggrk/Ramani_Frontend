@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import {
   MapPin,
@@ -27,7 +27,6 @@ export default function SiteDetails() {
   const { data, isPending, isError } = useFetch("site", `/sites/${id}`);
   const [userLocation, setUserLocation] = useState("");
   const selectedSite = data?.data?.site;
-  console.log(data);
 
   const coord = selectedSite?.coordinates?.coordinates;
   const queryClient = useQueryClient();
@@ -82,7 +81,7 @@ export default function SiteDetails() {
         <div className="flex h-screen items-center justify-center">
           <ActivityIndicator size="lg" />
         </div>
-      ) : selectedSite.length > 0 ? (
+      ) : selectedSite ? (
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header Section */}
           <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-white shadow-lg">
@@ -104,19 +103,29 @@ export default function SiteDetails() {
                     {selectedSite.description}
                   </p>
                 </div>
+
                 {role === "engineer" && (
-                  <button
-                    disabled={deleteSite.isPending}
-                    className="flex items-center gap-2 self-start rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:self-auto md:py-3 lg:text-base"
-                    onClick={() => deleteSite.mutate()}
-                  >
-                    {deleteSite.isPending ? (
-                      <ActivityIndicator size="xs" />
-                    ) : (
-                      <span>Delete Site</span>
-                    )}
-                  </button>
+                  <div className="flex flex-wrap justify-between gap-2 md:flex-col">
+                    <button
+                      disabled={deleteSite.isPending}
+                      className="cursor-pointer rounded-lg bg-white px-4 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:py-3 lg:text-base"
+                      onClick={() => deleteSite.mutate()}
+                    >
+                      {deleteSite.isPending ? (
+                        <ActivityIndicator size="xs" />
+                      ) : (
+                        <span>Delete Site</span>
+                      )}
+                    </button>
+                    <Link
+                      to="edit-site"
+                      className="cursor-pointer rounded-lg bg-white px-6 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-accent md:py-3 lg:text-base"
+                    >
+                      Edit Site
+                    </Link>
+                  </div>
                 )}
+
                 {role === "user" && (
                   <button
                     disabled={mutation.isPending}
@@ -183,10 +192,10 @@ export default function SiteDetails() {
 
           {/* Main Content */}
           <div className="flex flex-col gap-6 lg:flex-row">
-            {/* Left Column */}
-            <div className="flex flex-col gap-6">
-              {/* Map/Directions Section */}
-              <div className="flex flex-col gap-4 rounded-2xl bg-white p-2 shadow-lg">
+            {/* ✅ Left Column (Now stretches correctly) */}
+            <div className="flex flex-1 flex-col gap-6">
+              {/* Map Section */}
+              <div className="flex flex-1 flex-col gap-4 rounded-2xl bg-white p-2 shadow-lg">
                 <div className="h-64 min-h-[16rem] sm:h-80 lg:h-96">
                   <MapContainer
                     center={coord}
@@ -195,15 +204,12 @@ export default function SiteDetails() {
                     className="h-full w-full rounded-md"
                   >
                     <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      attribution="&copy; OpenStreetMap contributors"
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <Marker position={coord}>
                       <Popup>{selectedSite.siteTitle}</Popup>
                     </Marker>
-                    {/* {userLocation && (
-                      <Polyline positions={route} color="blue" />
-                    )} */}
                   </MapContainer>
                 </div>
                 <button
@@ -213,21 +219,20 @@ export default function SiteDetails() {
                   Get Directions
                 </button>
               </div>
-              {/* Job Details */}
-              <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-white p-6 shadow-lg">
+
+              {/* Description Section */}
+              <div className="flex-1 overflow-hidden rounded-2xl border border-accent/30 bg-white p-6 shadow-lg">
                 <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-textdark">
                   <Layers className="h-5 w-5 text-primary" />
                   Job Details
                 </h2>
-                <div className="max-w-none text-textlight">
-                  <p className="text-sm lg:text-base">
-                    {selectedSite.description}
-                  </p>
-                </div>
+                <p className="text-sm text-textlight lg:text-base">
+                  {selectedSite.description}
+                </p>
               </div>
             </div>
 
-            {/* Right Column */}
+            {/* Right Column (unchanged) */}
             <div className="lg:w-1/3">
               {/* Quick Info Card */}
               <div className="mb-6 overflow-hidden rounded-2xl border border-accent/30 bg-white shadow-lg">
@@ -294,7 +299,7 @@ export default function SiteDetails() {
                 </div>
               </div>
 
-              {/* Address Card */}
+              {/* Site Address */}
               <div className="mb-6 overflow-hidden rounded-2xl border border-accent/30 bg-white shadow-lg">
                 <div className="border-b border-accent/20 p-6">
                   <h3 className="text-base font-semibold text-textdark lg:text-lg">
@@ -315,14 +320,14 @@ export default function SiteDetails() {
                         {selectedSite.siteAddress.state}
                       </p>
                       <p className="text-xs text-textdark sm:text-sm">
-                        {selectedSite.siteAddress.country}{" "}
+                        {selectedSite.siteAddress.country}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* CTA Card */}
+              {/* CTA */}
               {role === "user" && (
                 <div className="overflow-hidden rounded-2xl bg-primary p-6 text-white shadow-lg">
                   <h3 className="mb-3 text-lg font-semibold">

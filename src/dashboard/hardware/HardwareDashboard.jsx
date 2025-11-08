@@ -1,32 +1,28 @@
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import {
   Building,
   Calendar,
   ChevronRight,
   FileText,
+  FileTextIcon,
   HardHat,
+  HardHatIcon,
   Plus,
   Search,
   SettingsIcon,
   Truck,
   UserCircle,
 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import useCartItems from "../../hooks/useCartItems";
-import useFetch from "../../hooks/useFetch";
 
-export default function EngineerDashboard() {
+export default function HardwareDashboard() {
   const { user } = useAuth();
   const { name } = user.data;
-  const { cartItems } = useCartItems();
-  const { data } = useFetch("receivedApplications", "applications/my");
-  const applications = data?.data?.applications;
-  console.log(data);
 
   const stats = [
     {
       title: "Applications",
-      value: applications?.length || 0,
+      value: 12,
       change: "+2",
       icon: <FileText className="h-5 w-5" />,
       color: "bg-primary/10 text-primary",
@@ -34,7 +30,7 @@ export default function EngineerDashboard() {
     },
     {
       title: "Hardware Orders",
-      value: cartItems?.data?.length || 0,
+      value: 8,
       change: "+3",
       icon: <HardHat className="h-5 w-5" />,
       color: "bg-secondary/10 text-secondary",
@@ -73,13 +69,13 @@ export default function EngineerDashboard() {
     },
     {
       title: "Shop",
-      icon: <HardHat className="h-6 w-6" />,
+      icon: <HardHatIcon className="h-6 w-6" />,
       link: "hardware",
       color: "text-accent",
     },
     {
       title: "Applications",
-      icon: <FileText className="h-6 w-6" />,
+      icon: <FileTextIcon className="h-6 w-6" />,
       link: "received-applications",
       color: "text-primary",
     },
@@ -100,6 +96,7 @@ export default function EngineerDashboard() {
   return (
     <>
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        {/* Welcome Section */}
         <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <h2 className="mb-1 text-2xl font-bold text-textdark sm:text-3xl">
@@ -150,6 +147,7 @@ export default function EngineerDashboard() {
           ))}
         </div>
 
+        {/* Quick Actions - More visual hierarchy */}
         <div className="mb-8">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-xl font-semibold text-textdark">

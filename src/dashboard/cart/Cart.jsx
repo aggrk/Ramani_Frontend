@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 
 export default function Cart() {
   const { cartItems, isPending, isError } = useCartItems();
+  console.log(cartItems);
 
   const total = cartItems?.data?.reduce(
     (acc, item) => acc + item.productId.pricePerUnit,

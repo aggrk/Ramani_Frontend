@@ -8,8 +8,6 @@ import api from "../../utils/api";
 import Success from "../../components/Success";
 import toast from "react-hot-toast";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 export default function UpdateProfile() {
   const [isLoading, setIsLoading] = useState(false);
   const { field } = useParams();

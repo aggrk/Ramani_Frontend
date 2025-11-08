@@ -19,7 +19,7 @@ export default function MyApplications() {
 
   return (
     <main className="mx-auto mb-8 flex max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
-      {applications.length ? (
+      {applications.length > 0 ? (
         <>
           <h1 className="my-6 text-xl font-bold uppercase tracking-wider md:text-xl">
             List of Applications

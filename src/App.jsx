@@ -18,6 +18,12 @@ import ProductDetails from "./dashboard/shop/ProductDetails";
 import Cart from "./dashboard/cart/Cart";
 import UpdateProfile from "./dashboard/user/UpdateProfile";
 import AddSite from "./dashboard/site/AddSite";
+import EditSite from "./dashboard/site/EditSite";
+import ReceivedApplications from "./dashboard/site/ReceivedApplications";
+import SettingsLayout from "./dashboard/settings/SettingsLayout";
+import Notifications from "./dashboard/settings/Notifications";
+import UpdatePassword from "./dashboard/user/UpdatePassword";
+import UpdateAccountDetails from "./dashboard/settings/UpdateAccountDetails";
 
 export default function App() {
   return (
@@ -33,9 +39,18 @@ export default function App() {
             <Route index element={<Profile />} />
             <Route path="update/:field" element={<UpdateProfile />} />
           </Route>
-          <Route path="sites" element={<SiteList />} />
-          <Route path="sites/:id" element={<SiteDetails />} />
+          <Route path="sites">
+            <Route index element={<SiteList />} />
+            <Route path=":id">
+              <Route index element={<SiteDetails />} />
+              <Route path="edit-site" element={<EditSite />} />
+            </Route>
+          </Route>
           <Route path="applications" element={<MyApplications />} />
+          <Route
+            path="received-applications"
+            element={<ReceivedApplications />}
+          />
           <Route path="add-site" element={<AddSite />} />
           <Route path="hardware">
             <Route index element={<Hardware />} />
@@ -45,6 +60,11 @@ export default function App() {
             </Route>
           </Route>
           <Route path="cart" element={<Cart />} />
+          <Route path="settings" element={<SettingsLayout />}>
+            <Route index element={<UpdateAccountDetails />} />
+            <Route path="change-password" element={<UpdatePassword />} />
+            <Route path="notifications" element={<Notifications />} />
+          </Route>
         </Route>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
