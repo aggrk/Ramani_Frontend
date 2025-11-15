@@ -23,7 +23,7 @@ export default function Cart() {
           <h3 className="text-lg font-bold italic">
             {cartItems.data?.length} products in Cart
           </h3>
-          <div className="flex w-full flex-col justify-between md:flex-row">
+          <div className="flex min-h-screen w-full flex-col justify-between md:flex-row">
             <div className="flex flex-col gap-5 md:w-3/4">
               {cartItems.data.map((item) => {
                 return (

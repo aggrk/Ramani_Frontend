@@ -24,6 +24,9 @@ import SettingsLayout from "./dashboard/settings/SettingsLayout";
 import Notifications from "./dashboard/settings/Notifications";
 import UpdatePassword from "./dashboard/user/UpdatePassword";
 import UpdateAccountDetails from "./dashboard/settings/UpdateAccountDetails";
+import ApprovedApplications from "./dashboard/application/ApprovedApplications";
+import PendingApplications from "./dashboard/application/PendingApplications";
+import RejectedApplications from "./dashboard/application/RejectedApplications";
 
 export default function App() {
   return (
@@ -47,6 +50,18 @@ export default function App() {
             </Route>
           </Route>
           <Route path="applications" element={<MyApplications />} />
+          <Route
+            path="approved-applications"
+            element={<ApprovedApplications />}
+          />
+          <Route
+            path="pending-applications"
+            element={<PendingApplications />}
+          />
+          <Route
+            path="rejected-applications"
+            element={<RejectedApplications />}
+          />
           <Route
             path="received-applications"
             element={<ReceivedApplications />}

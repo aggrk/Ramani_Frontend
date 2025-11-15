@@ -2,6 +2,7 @@ import AppCard from "./AppCard";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import NoData from "../../components/NoData";
 
 export default function MyApplications() {
   const { data, isPending, isError } = useFetch(
@@ -31,17 +32,10 @@ export default function MyApplications() {
           </div>
         </>
       ) : (
-        <div className="mt-12 self-center">
-          <p className="text-xl text-[#781717] lg:text-2xl">
-            You have no applications yet!{" "}
-            <Link
-              to="/dashboard/sites"
-              className="font-semibold italic underline"
-            >
-              Explore Sites
-            </Link>
-          </p>
-        </div>
+        <NoData
+          message="You have no applications yet!"
+          linkMessage="Explore Sites"
+        />
       )}
     </main>
   );
