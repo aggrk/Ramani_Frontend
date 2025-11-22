@@ -1,9 +1,8 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { apiUrl } from "../utils/utils";
 
 export const AuthenticationContext = createContext();
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function AuthContextProvider({ children }) {
   const [authChecked, setAuthChecked] = useState(false);

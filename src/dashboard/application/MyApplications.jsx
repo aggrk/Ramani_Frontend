@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import NoData from "../../components/NoData";
 
 export default function MyApplications() {
-  const { data, isPending, isError } = useFetch(
+  const { data, isPending } = useFetch(
     "applications",
     "/applications/getMyApplications",
   );

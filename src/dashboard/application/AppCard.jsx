@@ -104,7 +104,7 @@ export default function AppCard({ app }) {
     : [];
 
   return (
-    <div className="flex flex-col gap-4 rounded-md border border-accent bg-white p-4 shadow-lg">
+    <div className="flex flex-col gap-4 rounded-xl border border-[#d4d4d4] bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-lg">
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
@@ -210,60 +210,56 @@ export default function AppCard({ app }) {
           </div>
         </div>
       </Modal>
-      <div className="w-full border-b border-gray-400 border-opacity-30">
-        <h3 className="text-md mb-2 font-bold uppercase tracking-wide text-[#781717]">
+      <div className="w-full border-b border-gray-300 pb-2">
+        <h3 className="text-lg font-bold uppercase tracking-wide text-[#781717]">
           {application.siteTitle}
         </h3>
       </div>
-      <div className="flex flex-wrap gap-4">
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-90">
-            <MapPin className="h-5 w-5" />
-          </span>
-          <p className="text-[#000000]">{application.siteAddress.region}</p>
+      <div className="flex flex-wrap gap-3">
+        <div className="flex items-center gap-2 rounded-md bg-neutral px-3 py-2 text-sm shadow-sm">
+          <MapPin className="h-5 w-5 text-[#781717]" />
+          <p className="text-black">{application.siteAddress.region}</p>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
-            <Calendar className="h-5 w-5" />
-          </span>
-          <p className="text-[#000000]">
+
+        <div className="flex items-center gap-2 rounded-md bg-neutral px-3 py-2 text-sm shadow-sm">
+          <Calendar className="h-5 w-5 text-[#781717]" />
+          <p className="text-black">
             {formatDate(application.dates.start)} -{" "}
             {formatDate(application.dates.end)}
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
-            {app.status === "accepted" && <CircleCheck className="h-5 w-5" />}{" "}
-            {app.status === "pending" && (
-              <CircleDotDashed className="h-5 w-5" />
-            )}
-            {app.status === "rejected" && <CircleX className="h-5 w-5" />}
-          </span>
-          <p className="text-[#000000]">{app.status}</p>
-        </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
-            <HandCoins className="h-5 w-5" />
-          </span>
-          <p className="text-[#000000]">{application.paymentPerDay}</p>
-        </div>
-      </div>
 
-      <div>
-        <p className="md:text-md line-clamp-2 text-sm italic leading-6 tracking-wide text-[#33401C]">
-          {application.description}
-        </p>
+        <div className="flex items-center gap-2 rounded-md bg-neutral px-3 py-2 text-sm shadow-sm">
+          {app.status === "accepted" && (
+            <CircleCheck className="h-5 w-5 text-[#781717]" />
+          )}
+          {app.status === "pending" && (
+            <CircleDotDashed className="h-5 w-5 text-[#781717]" />
+          )}
+          {app.status === "rejected" && (
+            <CircleX className="h-5 w-5 text-[#781717]" />
+          )}
+          <p className="capitalize text-black">{app.status}</p>
+        </div>
+
+        <div className="flex items-center gap-2 rounded-md bg-neutral px-3 py-2 text-sm shadow-sm">
+          <HandCoins className="h-5 w-5 text-[#781717]" />
+          <p className="text-black">{application.paymentPerDay}</p>
+        </div>
       </div>
-      <div className="mt-4 flex items-center justify-between">
-        <Link
-          to=""
-          className="hover:text-md text-sm font-bold text-[#33401C] underline hover:opacity-80"
+      <p className="line-clamp-2 text-sm italic leading-6 tracking-wide text-[#33401C]">
+        {application.description}
+      </p>
+      <div className="mt-3 flex items-center justify-between">
+        <button
+          className="text-sm font-bold text-[#33401C] underline hover:opacity-80"
           onClick={handleOpenModal}
         >
           View Details
-        </Link>
+        </button>
+
         <button
-          className="text-md rounded-full border border-red-600 bg-white px-6 py-1 font-semibold text-[#811818] hover:border-none hover:bg-warning hover:text-white hover:shadow-lg"
+          className="text-md rounded-full border border-red-600 bg-white px-6 py-1 font-semibold text-[#811818] shadow-sm transition-all hover:border-warning hover:bg-warning hover:text-white hover:shadow-md"
           onClick={() => mutation.mutate()}
         >
           Delete
