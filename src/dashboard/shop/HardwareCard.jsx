@@ -1,7 +1,10 @@
 import { CircleCheck, HandCoins, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function HardwareCard({ hardware }) {
+  const { user } = useAuth();
+  const { role } = user.data;
   const coord = hardware.coordinates.coordinates;
   const handleGetDirections = () => {
     window.open(
@@ -48,17 +51,21 @@ export default function HardwareCard({ hardware }) {
       </div>
       <div className="mt-4 flex flex-col justify-between gap-3 md:flex-row md:items-center">
         <Link
-          to={`${hardware._id}/products`}
+          to={`/dashboard/hardware/${hardware._id}/products`}
           className="hover:text-md text-base font-bold text-[#33401C] underline hover:opacity-80"
         >
-          Explore Products
+          {role === "hardware dealer"
+            ? "See your products"
+            : "Explore Products"}
         </Link>
-        <button
-          className="text-md border-2 border-[#811818] bg-white px-6 py-1 font-semibold text-[#811818]"
-          onClick={handleGetDirections}
-        >
-          Get Directions
-        </button>
+        {role !== "hardware dealer" && (
+          <button
+            className="text-md border-2 border-[#811818] bg-white px-6 py-1 font-semibold text-[#811818]"
+            onClick={handleGetDirections}
+          >
+            Get Directions
+          </button>
+        )}
       </div>
     </div>
   );

@@ -18,9 +18,11 @@ export default function ReceivedApplications() {
     mutationFn: async (id) => {
       await api.patch(`/applications/approve/${id}`);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Application approved succesfully");
-      queryClient.invalidateQueries(["receivedApplications"]);
+      await queryClient.invalidateQueries({
+        queryKey: ["receivedApplications"],
+      });
     },
     onError: (err) => {
       console.log(err);

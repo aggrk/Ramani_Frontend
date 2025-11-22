@@ -59,9 +59,9 @@ export default function AppCard({ app }) {
 
   const mutation = useMutation({
     mutationFn: () => api.delete(`/applications/${app._id}`),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Application deleted succesfully!");
-      queryClient.invalidateQueries(["applications"]);
+      await queryClient.invalidateQueries({ queryKey: ["applications"] });
     },
     onError: (err) => {
       toast.error(err.response.data.message);

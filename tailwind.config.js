@@ -11,6 +11,8 @@ export default {
         textdark: "#1A1A1A", // For text
         textlight: "#333333", // For secondary text
         warning: "#8A0000",
+        bgmobile: "#38471F",
+        textmobile: "#FFFFFF",
       },
     },
   },

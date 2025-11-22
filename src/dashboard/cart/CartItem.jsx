@@ -11,16 +11,11 @@ export default function CartItem({ item }) {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await api.delete(
-        `/products/${product._id}/carts/${item._id}`,
-      );
-      if (!response.statusText === "OK") {
-        toast.error("Failed to delete from cart");
-      }
+      await api.delete(`/products/${product._id}/carts/${item._id}`);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Product deleted from cart");
-      queryClient.invalidateQueries(["carts"]);
+      await queryClient.invalidateQueries({ queryKey: ["carts"] });
     },
     onError: (err) => {
       console(err.message);

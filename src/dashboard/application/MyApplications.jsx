@@ -35,6 +35,7 @@ export default function MyApplications() {
         <NoData
           message="You have no applications yet!"
           linkMessage="Explore Sites"
+          link="/dashboard/sites"
         />
       )}
     </main>

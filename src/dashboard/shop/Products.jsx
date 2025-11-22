@@ -3,9 +3,12 @@ import ActivityIndicator from "../../components/ActivityIndicator";
 import NoData from "../../components/NoData";
 import ProductCard from "./ProductCard";
 import useFetch from "../../hooks/useFetch";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Products() {
   const { id } = useParams();
+  const { user } = useAuth();
+  const { role } = user?.data;
   const { data, isPending, isError } = useFetch(
     "products",
     `/hardware/${id}/products`,
@@ -21,7 +24,7 @@ export default function Products() {
 
   return (
     <main className="mx-auto mb-8 flex max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
-      {products.length ? (
+      {products?.length ? (
         <>
           <h1 className="my-6 text-xl font-bold uppercase tracking-wider md:text-xl">
             List of Products
@@ -35,8 +38,14 @@ export default function Products() {
       ) : (
         <NoData
           message="No Products for this hardware"
-          linkMessage="Go to hardware"
-          link="/dashboard/hardware"
+          linkMessage={
+            role === "hardware dealer" ? "Go to your Shops" : "Go to hardware"
+          }
+          link={
+            role === "hardware dealer"
+              ? "/dashboard/my-shops"
+              : "/dashboard/hardware"
+          }
         />
       )}
     </main>

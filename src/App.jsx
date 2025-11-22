@@ -27,6 +27,7 @@ import UpdateAccountDetails from "./dashboard/settings/UpdateAccountDetails";
 import ApprovedApplications from "./dashboard/application/ApprovedApplications";
 import PendingApplications from "./dashboard/application/PendingApplications";
 import RejectedApplications from "./dashboard/application/RejectedApplications";
+import MyShops from "./dashboard/hardware/MyShops";
 
 export default function App() {
   return (
@@ -74,6 +75,7 @@ export default function App() {
               <Route path="products/:productId" element={<ProductDetails />} />
             </Route>
           </Route>
+          <Route path="my-shops" element={<MyShops />} />
           <Route path="cart" element={<Cart />} />
           <Route path="settings" element={<SettingsLayout />}>
             <Route index element={<UpdateAccountDetails />} />

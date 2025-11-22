@@ -17,15 +17,11 @@ export default function ProductCard({ product }) {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await api.post(`/products/${product._id}/carts`);
-      if (!response.statusText === "OK") {
-        toast.error("Failed to add to cart");
-      }
-      return response.data;
+      await api.post(`/products/${product._id}/carts`);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Product added to cart");
-      queryClient.invalidateQueries(["carts"]);
+      await queryClient.invalidateQueries({ queryKey: ["carts"] });
     },
     onError: (err) => toast.error(err?.message || "Failed to add to cart"),
   });

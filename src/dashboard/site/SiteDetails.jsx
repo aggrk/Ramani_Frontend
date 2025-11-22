@@ -57,20 +57,20 @@ export default function SiteDetails() {
 
   const mutation = useMutation({
     mutationFn: () => api.post(`/sites/${id}/applications`, {}),
-    onSuccess: () => {
+    onSuccess: async () => {
       (toast.success(
         "Your application was successfull! We will get bask to you soon!",
       ),
-        queryClient.invalidateQueries(["applications"]));
+        await queryClient.invalidateQueries({ queryKey: ["applications"] }));
     },
     onError: (err) => toast.error(err?.response?.data?.message),
   });
 
   const deleteSite = useMutation({
     mutationFn: () => api.delete(`/sites/${id}`, {}),
-    onSuccess: () => {
+    onSuccess: async () => {
       (toast.success("Site deleted succesfully"),
-        queryClient.invalidateQueries(["sites"]));
+        await queryClient.invalidateQueries({ queryKey: ["sites"] }));
     },
     onError: (err) => toast.error(err?.response?.data?.message),
   });

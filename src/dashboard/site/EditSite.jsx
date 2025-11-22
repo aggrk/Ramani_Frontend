@@ -22,12 +22,11 @@ export default function EditSite() {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      console.log(data);
       await api.patch(`/sites/${id}`, data);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Site edited succesfully");
-      queryClient.invalidateQueries(["sites"]);
+      await queryClient.invalidateQueries({ queryKey: ["sites"] });
     },
     onError: (err) => {
       toast.error(err?.message || "Failed to add site.");
