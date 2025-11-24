@@ -1,13 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
-export default function useFetch(queryKey, url, params = {}, options = {}) {
+export default function useFetch(
+  queryKey,
+  url,
+  params = undefined,
+  options = {},
+) {
   const fetchData = async () => {
     const res = await api.get(`${url}`, { params });
     return res.data;
   };
   return useQuery({
-    queryKey: [queryKey],
+    queryKey: [queryKey, url, params],
     queryFn: fetchData,
     ...options,
   });

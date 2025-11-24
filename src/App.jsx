@@ -29,6 +29,9 @@ import PendingApplications from "./dashboard/application/PendingApplications";
 import RejectedApplications from "./dashboard/application/RejectedApplications";
 import MyShops from "./dashboard/hardware/MyShops";
 import UsersList from "./dashboard/admin/UsersList";
+import HardwareList from "./dashboard/admin/HardwareList";
+import EditUser from "./dashboard/admin/EditUser";
+import AddUser from "./dashboard/admin/AddUser";
 
 export default function App() {
   return (
@@ -68,7 +71,12 @@ export default function App() {
             path="received-applications"
             element={<ReceivedApplications />}
           />
-          <Route path="users" element={<UsersList />} />
+          <Route path="users">
+            <Route index element={<UsersList />} />
+            <Route path=":id" element={<EditUser />} />
+          </Route>
+          <Route path="add-user" element={<AddUser />} />
+          <Route path="shops" element={<HardwareList />} />
           <Route path="add-site" element={<AddSite />} />
           <Route path="hardware">
             <Route index element={<Hardware />} />

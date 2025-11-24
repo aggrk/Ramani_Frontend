@@ -19,7 +19,10 @@ export default function AdminDashboard() {
   const { user } = useAuth();
   const { name } = user?.data;
   const { data: userData } = useFetch("users", "/users");
-  const { data: hardwareData } = useFetch("hardware", "/hardware");
+  const { data: hardwareData } = useFetch(
+    "hardware",
+    "/hardware/getAllHardwareForAdmin",
+  );
   const usersCount = userData?.data?.length || 0;
   const hardwareCount = hardwareData?.data?.hardware?.length || 0;
   const activeUsersCount =
@@ -31,9 +34,9 @@ export default function AdminDashboard() {
   const unapprovedShopsCount =
     hardwareData?.data?.hardware?.filter((shop) => shop.status === "pending")
       ?.length || 0;
-  const approvedShopsCount = hardwareData?.data?.hardware?.filter(
-    (shop) => shop.status === "verified",
-  )?.length;
+  const approvedShopsCount =
+    hardwareData?.data?.hardware?.filter((shop) => shop.status === "verified")
+      ?.length || 0;
 
   return (
     <>
@@ -74,7 +77,7 @@ export default function AdminDashboard() {
           <StatsCard
             length={approvedShopsCount}
             title="Verified Shops"
-            link="verified-shops"
+            link="shops?status=verified"
             icon={<CheckCircle className="h-5 w-5" />}
           />
           <StatsCard
@@ -92,13 +95,13 @@ export default function AdminDashboard() {
           <StatsCard
             length={deletedUsersCount}
             title="Deleted Accounts"
-            link="deleted-accounts"
+            link="users?deletedAt!=null"
             icon={<UserX className="h-5 w-5" />}
           />
           <StatsCard
             length={unapprovedShopsCount}
             title="Unapproved Shops"
-            link="unapproved-shops"
+            link="shops?status=pending"
             icon={<Hammer className="h-5 w-5" />}
           />
         </div>
@@ -125,7 +128,7 @@ export default function AdminDashboard() {
               title="All Users"
             />
             <QuickActionsCard
-              link="registered-shops"
+              link="shops"
               icon={<HardHat className="h-6 w-6" />}
               title="All Registered Shops"
             />

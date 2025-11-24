@@ -1,11 +1,21 @@
-import useFetch from "./useFetch";
+import { useQuery } from "@tanstack/react-query";
+import api from "../utils/api";
+import { useAuth } from "./useAuth";
 
 export default function useCartItems() {
+  const { user } = useAuth();
+
   const {
     data: cartItems,
     isPending,
     isError,
-  } = useFetch("carts", "/carts/getMyCarts");
+  } = useQuery({
+    queryKey: ["carts", user?.data?._id],
+    queryFn: async () => {
+      const res = await api.get("/carts/getMyCarts");
+      return res.data;
+    },
+  });
 
   return { cartItems, isPending, isError };
 }

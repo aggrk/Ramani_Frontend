@@ -5,14 +5,12 @@ import CartItem from "./CartItem";
 
 export default function Cart() {
   const { cartItems, isPending, isError } = useCartItems();
-  console.log(cartItems);
 
   const total = cartItems?.data?.reduce(
     (acc, item) => acc + item.productId.pricePerUnit,
     0,
   );
 
-  console.log(total);
   return (
     <main className="mx-auto mb-8 flex max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
       {cartItems?.data?.length ? (

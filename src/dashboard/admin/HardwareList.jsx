@@ -1,16 +1,20 @@
 import { useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ActivityIndicator from "../../components/ActivityIndicator";
-import MobileUserList from "./MobileUserList";
-import UserTableRow from "./UserTableRow";
+import MobileHardwareList from "./MobileHardwareList";
+import HardwareTableRow from "./HardwareTableRow";
 
-export default function UsersList() {
+export default function HardwareList() {
   const [params] = useSearchParams();
   const paramsObject = Object.fromEntries([...params]);
-  const { data } = useFetch("users", "/users", paramsObject);
-  const users = data?.data;
+  const { data } = useFetch(
+    "shops-list",
+    "/hardware/getAllHardwareForAdmin",
+    paramsObject,
+  );
 
-  if (!users)
+  const hardware = data?.data?.hardware;
+  if (!hardware)
     return (
       <div className="flex h-screen items-center justify-center">
         <ActivityIndicator size="lg" />
@@ -33,26 +37,28 @@ export default function UsersList() {
                 Phone
               </th>
               <th className="px-6 py-3 text-left font-semibold uppercase">
-                Role
+                Address
               </th>
               <th className="px-6 py-3 text-left font-semibold uppercase">
                 Status
+              </th>
+              <th className="px-6 py-3 text-left font-semibold uppercase">
+                Licence
               </th>
               <th className="px-6 py-3 text-center font-semibold uppercase">
                 Actions
               </th>
             </tr>
           </thead>
-
           <tbody className="text-textdark">
-            {users?.map((user) => (
-              <UserTableRow key={user._id} user={user} />
+            {hardware?.map((hardware) => (
+              <HardwareTableRow key={hardware._id} hardware={hardware} />
             ))}
           </tbody>
         </table>
         <div className="space-y-4 md:hidden">
-          {users?.map((user) => (
-            <MobileUserList user={user} key={user._id} />
+          {hardware?.map((hardware) => (
+            <MobileHardwareList key={hardware._id} hardware={hardware} />
           ))}
         </div>
       </div>
