@@ -13,46 +13,46 @@ export default function HardwareCard({ hardware }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-md border border-accent bg-white p-4 shadow-lg">
-      <div className="w-full border-b border-gray-400 border-opacity-30">
-        <h3 className="text-md mb-2 font-bold uppercase tracking-wide text-[#781717]">
+    <div className="flex flex-col gap-4 rounded-lg bg-bgfooter p-4 shadow-lg">
+      <div className="w-full border-b border-textcolor border-opacity-20">
+        <h3 className="text-md mb-2 font-bold uppercase tracking-wide text-textcolor">
           {hardware.name}
         </h3>
       </div>
       <div className="flex flex-wrap gap-4">
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-90">
+        <div className="flex items-center gap-2 rounded-lg bg-textcolor p-2 text-sm shadow-sm">
+          <span className="font-bold text-primary opacity-90">
             <MapPin className="h-5 w-5" />
           </span>
-          <p className="text-[#000000]">
+          <p className="text-bgfooter">
             {hardware.address.street}, {hardware.address.region}
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
+        <div className="flex items-center gap-2 rounded-lg bg-textcolor p-2 text-sm shadow-sm">
+          <span className="font-bold text-primary opacity-85">
             <Phone className="h-5 w-5" />
           </span>
-          <p className="text-[#000000]">{hardware.phone}</p>
+          <p className="text-bgfooter">{hardware.phone}</p>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-neutral p-2 text-sm shadow-sm">
-          <span className="font-bold text-[#781717] opacity-85">
+        <div className="flex items-center gap-2 rounded-lg bg-textcolor p-2 text-sm shadow-sm">
+          <span className="font-bold text-primary opacity-85">
             <CircleCheck className="h-5 w-5" />
           </span>
-          <p className="text-[#000000]">
+          <p className="text-bgfooter">
             {hardware.status.charAt(0).toUpperCase() + hardware.status.slice(1)}
           </p>
         </div>
       </div>
 
       <div>
-        <p className="md:text-md line-clamp-2 text-sm italic leading-6 tracking-wide text-[#33401C]">
+        <p className="md:text-md line-clamp-2 text-sm italic leading-6 tracking-wide text-textcolor">
           {hardware.description}
         </p>
       </div>
       <div className="mt-4 flex flex-col justify-between gap-3 md:flex-row md:items-center">
         <Link
           to={`/dashboard/hardware/${hardware._id}/products`}
-          className="hover:text-md text-base font-bold text-[#33401C] underline hover:opacity-80"
+          className="hover:text-md text-base font-bold text-textfooter underline hover:opacity-80"
         >
           {role === "hardware dealer"
             ? "See your products"
@@ -60,7 +60,7 @@ export default function HardwareCard({ hardware }) {
         </Link>
         {role !== "hardware dealer" && (
           <button
-            className="text-md border-2 border-[#811818] bg-white px-6 py-1 font-semibold text-[#811818]"
+            className="text-md rounded-lg bg-textfooter px-6 py-1 font-semibold text-bgfooter"
             onClick={handleGetDirections}
           >
             Get Directions

@@ -15,14 +15,14 @@ export default function Cart() {
     <main className="mx-auto mb-8 flex max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
       {cartItems?.data?.length ? (
         <>
-          <h1 className="my-6 text-xl font-bold uppercase tracking-wider md:text-xl">
+          <h1 className="my-6 text-xl font-bold uppercase tracking-wider text-textcolor md:text-xl">
             Shopping Cart
           </h1>
-          <h3 className="text-lg font-bold italic">
+          <h3 className="text-lg font-bold italic text-textsecondary">
             {cartItems.data?.length} products in Cart
           </h3>
           <div className="flex min-h-screen w-full flex-col justify-between md:flex-row">
-            <div className="flex flex-col gap-5 md:w-3/4">
+            <div className="flex h-screen flex-col gap-5 sm:border-r sm:border-textcolor/20 md:w-3/4">
               {cartItems.data.map((item) => {
                 return (
                   <div key={item._id} className="flex">

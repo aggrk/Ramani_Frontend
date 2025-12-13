@@ -33,7 +33,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
       <div className="flex flex-col gap-1">
         <label
           htmlFor="currentPassword"
-          className="text-sm font-medium text-gray-700"
+          className="text-sm font-medium text-textcolor"
         >
           Current Password
         </label>
@@ -44,7 +44,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
           {...register("currentPassword", {
             required: "Please enter your current password",
           })}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-primary/40"
+          className="focus:border-ttextcolor w-full rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none transition placeholder:text-textcolor/20 focus:ring-2 focus:ring-textcolor"
         />
         {errors.currentPassword && (
           <p className="text-xs text-red-500">
@@ -57,7 +57,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="newPassword"
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-textcolor"
           >
             New Password
           </label>
@@ -68,7 +68,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
             {...register("newPassword", {
               required: "Please enter the new password",
             })}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-primary/40"
+            className="w-full rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none transition placeholder:text-textcolor/20 focus:border-textcolor focus:ring-2 focus:ring-textcolor"
           />
           {errors.newPassword && (
             <p className="text-xs text-red-500">{errors.newPassword.message}</p>
@@ -78,7 +78,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="confirmPassword"
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-textcolor"
           >
             Confirm Password
           </label>
@@ -91,7 +91,7 @@ export default function UpdatePassword({ setUpdatePassword }) {
               validate: (value) =>
                 value === watch("newPassword") || "Passwords do not match",
             })}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-400 focus:ring-2 focus:ring-primary/40"
+            className="w-full rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none transition placeholder:text-textcolor/20 focus:border-textcolor focus:ring-2 focus:ring-textcolor"
           />
           {errors.confirmPassword && (
             <p className="text-xs text-red-500">
@@ -105,17 +105,17 @@ export default function UpdatePassword({ setUpdatePassword }) {
         <button
           type="button"
           onClick={() => setUpdatePassword(false)}
-          className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 transition hover:bg-gray-100"
+          className="rounded-md border border-textcolor px-4 py-2 text-sm text-textcolor transition hover:bg-textcolor hover:text-bgfooter"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          className="rounded-md bg-[#556B2F] px-6 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#465827] active:scale-[0.98]"
+          className="rounded-md bg-textfooter px-6 py-2 text-sm font-medium text-bgfooter shadow-sm transition hover:bg-textcolor active:scale-[0.98]"
         >
           {isLoading ? (
-            <ActivityIndicator size="xs" className="border-white" />
+            <ActivityIndicator size="xs" className="border-bgfooter" />
           ) : (
             "Update Password"
           )}

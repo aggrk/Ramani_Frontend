@@ -6,12 +6,12 @@ export default function NotificationButton() {
 
   return (
     <button
-      className="relative p-2 text-gray-500 transition-colors hover:text-primary"
+      className="text-textcolor relative p-2 transition-colors hover:-translate-y-1 hover:translate-x-1 hover:transform"
       aria-label="Notifications"
     >
       <Bell className="h-5 w-5" />
       {notifications > 0 && (
-        <span className="absolute -right-1 -top-1 flex h-5 w-5 animate-pulse items-center justify-center rounded-full bg-red-500 text-xs text-white">
+        <span className="bg-textcolor text-bgcolor absolute -right-1 -top-1 flex h-5 w-5 animate-pulse items-center justify-center rounded-full text-xs">
           {notifications}
         </span>
       )}

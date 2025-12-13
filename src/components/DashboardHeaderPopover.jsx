@@ -15,7 +15,7 @@ export default function DashboardHeaderPopover() {
         <>
           <Popover.Button
             className={`flex items-center space-x-2 focus:outline-none ${
-              open ? "rounded-full pr-2 ring-2 ring-primary/50" : ""
+              open ? "ring-textsecondary rounded-full pr-2 ring-2" : ""
             }`}
           >
             <div className="relative">
@@ -41,10 +41,10 @@ export default function DashboardHeaderPopover() {
               <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500"></span>
             </div>
             <div className="hidden text-left md:block">
-              <p className="max-w-[120px] truncate text-sm font-medium text-gray-800">
+              <p className="text-textcolor max-w-[120px] truncate text-sm font-medium">
                 {name}
               </p>
-              <p className="text-xs capitalize text-gray-500">{role}</p>
+              <p className="text-textsecondary text-xs capitalize">{role}</p>
             </div>
           </Popover.Button>
 
@@ -57,24 +57,24 @@ export default function DashboardHeaderPopover() {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Popover.Panel className="ring-bgcolor divide-bgcolor/25 bg-textcolor absolute right-0 mt-2 w-56 origin-top-right divide-y rounded-md shadow-lg ring-1 ring-opacity-5 focus:outline-none">
               <div className="px-4 py-3">
-                <p className="text-sm font-medium text-gray-900">{name}</p>
-                <p className="truncate text-xs capitalize text-gray-500">
+                <p className="text-bgcolor text-sm font-medium">{name}</p>
+                <p className="text-bgcolor/75 truncate text-xs capitalize">
                   {role}
                 </p>
               </div>
               <div className="py-1">
                 <Link
                   to="profile"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="text-bgcolor flex items-center px-4 py-2 text-sm"
                 >
                   <UserCircle className="mr-2 h-4 w-4" />
                   View Profile
                 </Link>
                 <Link
                   to="settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="text-bgcolor flex items-center px-4 py-2 text-sm"
                 >
                   <Edit2 className="mr-2 h-4 w-4" />
                   Edit Profile
@@ -83,7 +83,7 @@ export default function DashboardHeaderPopover() {
               <div className="py-1">
                 <button
                   onClick={logout}
-                  className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  className="flex w-full items-center px-4 py-2 text-sm text-primary hover:bg-gray-100"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign out

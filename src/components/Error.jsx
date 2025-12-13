@@ -1,15 +1,13 @@
 export default function Error({ error }) {
   return (
     <div
-      className={`px-4 py-3 mb-4 text-sm font-medium rounded-lg border ${
-        error
-          ? "bg-red-50 text-red-700 border-red-200 animate-fade-in"
-          : "hidden"
+      className={`mb-4 rounded-lg border px-4 py-3 text-sm font-medium ${
+        error ? "animate-fade-in bg-textcolor text-red-700" : "hidden"
       }`}
     >
       <div className="flex items-center">
         <svg
-          className="w-5 h-5 mr-2 flex-shrink-0"
+          className="mr-2 h-5 w-5 flex-shrink-0"
           fill="currentColor"
           viewBox="0 0 20 20"
         >

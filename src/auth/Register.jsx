@@ -38,16 +38,16 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center bg-neutral/5">
+    <div className="flex min-h-screen items-center bg-bgcolor">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col items-center justify-center gap-12 lg:flex-row lg:gap-16">
           {/* Compact Registration Form */}
           <div className="w-full max-w-md">
             <div className="mb-8 text-center">
-              <h3 className="text-2xl font-bold text-textdark md:text-3xl">
-                Join Ramani
+              <h3 className="text-2xl font-bold text-textcolor md:text-3xl">
+                Join NipeRamani
               </h3>
-              <p className="mt-2 text-textlight">
+              <p className="mt-2 text-textsecondary">
                 Connect with Tanzania's construction network
               </p>
             </div>
@@ -78,7 +78,7 @@ export default function Register() {
                 <div key={field.id}>
                   <label
                     htmlFor={field.id}
-                    className="mb-1 block text-sm font-medium text-textdark"
+                    className="text-textdark mb-1 block text-sm font-medium"
                   >
                     {field.label}
                   </label>
@@ -117,7 +117,7 @@ export default function Register() {
                         },
                       }),
                     })}
-                    className="w-full rounded border border-accent/20 bg-white px-3 py-2.5 text-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded border border-textsecondary bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-textsecondary focus:ring-1 focus:ring-textsecondary"
                   />
                   {errors[field.id] && (
                     <p className="mt-1 text-xs text-red-500">
@@ -131,7 +131,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="password"
-                  className="mb-1 block text-sm font-medium text-textdark"
+                  className="text-textdark mb-1 block text-sm font-medium"
                 >
                   Password
                 </label>
@@ -148,7 +148,7 @@ export default function Register() {
                         message: "Password must be at least 8 characters",
                       },
                     })}
-                    className="w-full rounded border border-accent/20 bg-white px-3 py-2.5 pr-9 text-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 pr-9 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-textsecondary focus:ring-1 focus:ring-textsecondary"
                   />
                   {errors.password && (
                     <p className="mt-1 text-xs text-red-500">
@@ -157,7 +157,7 @@ export default function Register() {
                   )}
                   <button
                     type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textlight transition-colors hover:text-primary"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textcolor transition-colors hover:text-neutral"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -173,7 +173,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="mb-1 block text-sm font-medium text-textdark"
+                  className="text-textdark mb-1 block text-sm font-medium"
                 >
                   Confirm Password
                 </label>
@@ -188,7 +188,7 @@ export default function Register() {
                       validate: (value) =>
                         value === watch("password") || "Passwords do not match",
                     })}
-                    className="w-full rounded border border-accent/20 bg-white px-3 py-2.5 pr-9 text-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 pr-9 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-textsecondary focus:ring-1 focus:ring-textsecondary"
                   />
                   {errors.confirmPassword && (
                     <p className="mt-1 text-xs text-red-500">
@@ -197,7 +197,7 @@ export default function Register() {
                   )}
                   <button
                     type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textlight transition-colors hover:text-primary"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textcolor transition-colors hover:text-neutral"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
                     {showConfirmPassword ? (
@@ -211,19 +211,19 @@ export default function Register() {
 
               <button
                 type="submit"
-                className="hover:bg-primary-dark mt-4 w-full rounded bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors"
+                className="hover:bg-primary-dark mt-4 w-full rounded bg-textsecondary px-4 py-2.5 text-sm font-medium text-bgcolor"
               >
                 {isLoading ? (
-                  <ActivityIndicator size="xs" className="border-white" />
+                  <ActivityIndicator size="xs" className="border-bgcolor" />
                 ) : (
                   "Create Account"
                 )}
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-textlight">
+            <p className="mt-6 text-center text-sm text-textsecondary">
               Already registered?{" "}
-              <Link to="/login" className="text-primary hover:underline">
+              <Link to="/login" className="text-textcolor hover:underline">
                 Sign in
               </Link>
             </p>
@@ -237,10 +237,10 @@ export default function Register() {
               className="w-full"
             />
             <div className="mt-6 space-y-2 text-center">
-              <h4 className="text-lg font-medium text-textdark">
+              <h4 className="text-lg font-medium text-textcolor">
                 Your Gateway to Construction Opportunities
               </h4>
-              <p className="text-sm text-textlight">
+              <p className="text-sm text-textsecondary">
                 Connect with suppliers and grow your business
               </p>
             </div>

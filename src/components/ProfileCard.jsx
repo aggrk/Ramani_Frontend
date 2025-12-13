@@ -19,7 +19,7 @@ export default function ProfileCard() {
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file)); // show preview
+      setPreview(URL.createObjectURL(file));
       uploadImage(file);
     }
   };
@@ -48,10 +48,10 @@ export default function ProfileCard() {
   };
 
   return (
-    <div className="h-fit rounded-xl bg-white p-4 shadow-lg transition-all duration-300 hover:shadow-xl sm:p-6 lg:sticky lg:top-8">
+    <div className="h-fit rounded-xl bg-textcolor p-4 shadow-lg transition-all duration-300 hover:shadow-xl sm:p-6 lg:sticky lg:top-8">
       <div className="mb-4 flex flex-col items-center sm:mb-6">
         <div
-          className="group relative mb-3 flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#F3E9D9] sm:mb-4 sm:h-36 sm:w-36 md:h-40 md:w-40"
+          className="group relative mb-3 flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-bgfooter sm:mb-4 sm:h-36 sm:w-36 md:h-40 md:w-40"
           onClick={() => fileInputRef.current.click()}
         >
           {preview ? (
@@ -69,7 +69,7 @@ export default function ProfileCard() {
           ) : (
             <>
               <svg
-                className="h-16 w-16 text-[#556B2F] sm:h-20 sm:w-20 md:h-24 md:w-24"
+                className="h-16 w-16 text-textcolor sm:h-20 sm:w-20 md:h-24 md:w-24"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -82,12 +82,12 @@ export default function ProfileCard() {
               </svg>
             </>
           )}
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute inset-0 flex items-center justify-center bg-bgfooter bg-opacity-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             {isUploading ? (
-              <span className="text-sm text-white">Uploading...</span>
+              <span className="text-sm text-textcolor">Uploading...</span>
             ) : (
               <svg
-                className="h-8 w-8 text-white sm:h-10 sm:w-10 md:h-12 md:w-12"
+                className="h-8 w-8 text-textcolor sm:h-10 sm:w-10 md:h-12 md:w-12"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -117,33 +117,33 @@ export default function ProfileCard() {
             onChange={handleImageSelect}
           />
         </div>
-        <h2 className="text-center text-lg font-bold text-[#1A1A1A] sm:text-xl lg:text-2xl">
+        <h2 className="text-center text-lg font-bold text-bgfooter sm:text-xl lg:text-2xl">
           {name}
         </h2>
-        <p className="text-center text-sm font-medium text-[#556B2F] sm:text-base lg:text-lg">
+        <p className="text-textalt text-center text-sm font-medium sm:text-base lg:text-lg">
           {email}
         </p>
         <button
-          onClick={() => fileInputRef.current.click()} // ✅ opens file selector
-          className="mt-2 text-sm font-medium text-[#B22222] transition-colors duration-200 hover:text-[#9B1C1C] sm:mt-3 sm:text-base lg:text-lg"
+          onClick={() => fileInputRef.current.click()}
+          className="mt-2 text-sm font-medium text-primary transition-colors duration-200 hover:text-primary/80 sm:mt-3 sm:text-base lg:text-lg"
         >
           {isUploading ? "Uploading..." : "Change Photo"}
         </button>
       </div>
-      <div className="border-t border-[#E8D9C5] pt-3 sm:pt-4">
+      <div className="border-t border-bgfooter/20 pt-3 sm:pt-4">
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-xs text-[#666] sm:text-sm lg:text-base">
+          <span className="text-xs text-bgfooter sm:text-sm lg:text-base">
             Account status:
           </span>
-          <span className="text-xs font-medium text-[#556B2F] sm:text-sm lg:text-base">
+          <span className="text-textalt text-xs font-medium sm:text-sm lg:text-base">
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-[#666] sm:text-sm lg:text-base">
+          <span className="text-xs text-bgfooter sm:text-sm lg:text-base">
             Member since:
           </span>
-          <span className="text-xs font-medium text-[#333] sm:text-sm lg:text-base">
+          <span className="text-textalt text-xs font-medium sm:text-sm lg:text-base">
             {memberSince}
           </span>
         </div>

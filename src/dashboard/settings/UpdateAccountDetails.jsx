@@ -34,38 +34,38 @@ export default function UpdateAccountDetails() {
           className="flex w-full flex-col gap-6"
         >
           <div className="flex w-full flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Name</label>
+            <label className="text-sm font-medium text-textcolor">Name</label>
             <input
               type="text"
               defaultValue={name}
               {...register("name", { required: true })}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-800 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-md bg-textcolor px-3 py-2 text-bgfooter outline-none transition focus:ring-2 focus:ring-textcolor"
             />
           </div>
 
           <div className="flex w-full flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Email</label>
+            <label className="text-sm font-medium text-textcolor">Email</label>
             <input
               type="email"
               defaultValue={email}
               {...register("email", { required: true })}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-800 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-md bg-textcolor px-3 py-2 text-bgfooter outline-none transition focus:ring-2 focus:ring-primary/30"
             />
           </div>
 
           <div className="flex w-full flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Phone</label>
+            <label className="text-sm font-medium text-textcolor">Phone</label>
             <input
               type="text"
               defaultValue={phone}
               {...register("phone", { required: true })}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-800 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-md bg-textcolor px-3 py-2 text-bgfooter outline-none transition focus:ring-2 focus:ring-textcolor"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-md bg-[#B22222] py-2 font-medium text-white transition hover:bg-[#9b1c1c] active:scale-[0.98]"
+            className="w-full rounded-md bg-textsecondary py-2 font-medium text-bgcolor transition"
           >
             {isLoading ? (
               <ActivityIndicator size="xs" className="border-white" />

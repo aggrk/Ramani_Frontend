@@ -20,16 +20,32 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
 
-export default function SiteDetails() {
+export default function ApplicationDetails() {
   const { id } = useParams();
   const { user } = useAuth();
   const { role } = user?.data;
-  const { data, isPending } = useFetch("site", `/sites/${id}`);
+  const { data, isPending, error } = useFetch(
+    "application",
+    `/applications/${id}`,
+  );
   const [userLocation, setUserLocation] = useState("");
-  const selectedSite = data?.data?.site;
+  console.log(data);
+  const application = data?.data?.application;
+  const selectedSite = data?.data?.application?.siteId;
 
   const coord = selectedSite?.coordinates?.coordinates;
   const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: () => api.delete(`/applications/${id}`),
+    onSuccess: async () => {
+      toast.success("Application deleted succesfully!");
+      await queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -54,26 +70,6 @@ export default function SiteDetails() {
       `https://www.google.com/maps/search/?api=1&query=${coord[0]},${coord[1]}`,
     );
   };
-
-  const mutation = useMutation({
-    mutationFn: () => api.post(`/sites/${id}/applications`, {}),
-    onSuccess: async () => {
-      (toast.success(
-        "Your application was successfull! We will get bask to you soon!",
-      ),
-        await queryClient.invalidateQueries({ queryKey: ["applications"] }));
-    },
-    onError: (err) => toast.error(err?.response?.data?.message),
-  });
-
-  const deleteSite = useMutation({
-    mutationFn: () => api.delete(`/sites/${id}`, {}),
-    onSuccess: async () => {
-      (toast.success("Site deleted succesfully"),
-        await queryClient.invalidateQueries({ queryKey: ["sites"] }));
-    },
-    onError: (err) => toast.error(err?.response?.data?.message),
-  });
 
   return (
     <div className="min-h-screen">
@@ -103,44 +99,9 @@ export default function SiteDetails() {
                   </p>
                 </div>
 
-                {role === "engineer" && (
-                  <div className="flex flex-wrap justify-between gap-2 md:flex-col">
-                    <button
-                      disabled={deleteSite.isPending}
-                      className="hover:bg-accent cursor-pointer rounded-lg bg-textcolor px-4 py-2 text-sm font-semibold text-bgcolor shadow-sm md:py-3 lg:text-base"
-                      onClick={() => deleteSite.mutate()}
-                    >
-                      {deleteSite.isPending ? (
-                        <ActivityIndicator size="xs" />
-                      ) : (
-                        <span>Delete Site</span>
-                      )}
-                    </button>
-                    <Link
-                      to="edit-site"
-                      className="hover:bg-accent cursor-pointer rounded-lg bg-textcolor px-6 py-2 text-sm font-semibold text-bgcolor shadow-sm md:py-3 lg:text-base"
-                    >
-                      Edit Site
-                    </Link>
-                  </div>
-                )}
-
-                {role === "user" && (
-                  <button
-                    disabled={mutation.isPending}
-                    className="hover:bg-accent flex items-center gap-2 self-start rounded-lg bg-textcolor px-6 py-2 text-sm font-semibold text-bgcolor shadow-sm md:self-auto md:py-3 lg:text-base"
-                    onClick={() => mutation.mutate()}
-                  >
-                    {mutation.isPending ? (
-                      <ActivityIndicator size="xs" className="border-bgcolor" />
-                    ) : (
-                      <>
-                        <HardHat className="h-5 w-5" />
-                        <span>Apply Now</span>
-                      </>
-                    )}
-                  </button>
-                )}
+                <div className="flex items-center gap-2 self-start rounded-lg bg-textcolor px-6 py-2 text-sm font-semibold text-bgcolor shadow-sm md:self-auto md:py-3 lg:text-base">
+                  {application.status.toUpperCase()}
+                </div>
               </div>
             </div>
 
@@ -321,11 +282,8 @@ export default function SiteDetails() {
               {role === "user" && (
                 <div className="overflow-hidden rounded-2xl bg-textcolor p-6 text-white shadow-lg">
                   <h3 className="mb-3 text-lg font-semibold text-bgfooter">
-                    Interested in this project?
+                    Changed Your Mind?
                   </h3>
-                  <p className="text-textalt mb-6">
-                    Apply now to join our team of skilled professionals.
-                  </p>
                   <button
                     className="hover:bg-accent flex w-full items-center justify-center gap-2 rounded-lg bg-bgfooter py-3 font-semibold text-textcolor transition-all"
                     onClick={() => mutation.mutate()}
@@ -333,10 +291,7 @@ export default function SiteDetails() {
                     {mutation.isPending ? (
                       <ActivityIndicator size="xs" />
                     ) : (
-                      <>
-                        <HardHat className="h-5 w-5" />
-                        <span>Apply Now</span>
-                      </>
+                      <span>Delete Application</span>
                     )}
                   </button>
                 </div>

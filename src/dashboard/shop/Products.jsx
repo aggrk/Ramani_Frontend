@@ -26,7 +26,7 @@ export default function Products() {
     <main className="mx-auto mb-8 flex max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
       {products?.length ? (
         <>
-          <h1 className="my-6 text-xl font-bold uppercase tracking-wider md:text-xl">
+          <h1 className="my-6 text-xl font-bold uppercase tracking-wider text-textcolor md:text-xl">
             List of Products
           </h1>
           <div className="flex w-full flex-col gap-5 lg:grid lg:grid-cols-2">

@@ -36,14 +36,14 @@ export default function ProductCard({ product }) {
 
   if (isPending) {
     return (
-      <div className="flex h-48 items-center justify-center rounded-xl bg-[#FFFFFF] p-3 shadow-lg">
+      <div className="flex h-48 items-center justify-center rounded-xl bg-textcolor p-3 shadow-lg">
         <ActivityIndicator size="md" />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-[#FFFFFF] p-3 shadow-lg lg:h-48 lg:flex-row">
+    <div className="flex flex-col gap-4 rounded-xl bg-bgfooter p-3 shadow-lg lg:h-48 lg:flex-row">
       <Link
         to={`${product._id}`}
         aria-label={`View details for ${product.name}`}
@@ -51,27 +51,31 @@ export default function ProductCard({ product }) {
         <img
           src={`${imageUrl}/products/${product.imageCover}`}
           alt={`Image of ${product.name}`}
-          className="h-52 w-full rounded-xl object-cover shadow-lg lg:h-full lg:w-52"
+          className="h-52 w-full rounded-xl bg-bgcolor object-cover text-textcolor shadow-lg lg:h-full lg:w-52"
           loading="lazy"
         />
       </Link>
       <div className="flex h-full flex-col gap-1 lg:flex-1">
-        <h3 className="font-semibold uppercase tracking-wider text-primary">
+        <h3 className="font-semibold uppercase tracking-wider text-textcolor">
           {product.name}
         </h3>
-        <p className="line-clamp-2 text-sm italic">{product.description}</p>
+        <p className="line-clamp-2 text-sm italic text-textcolor">
+          {product.description}
+        </p>
         <div>
-          <span className="text-xs font-bold">
+          <span className="text-xs font-bold text-textcolor">
             Qty: {product.quantityInStock}
           </span>
         </div>
         <div>
-          <span className="text-xs font-bold">{product.pricePerUnit} TZS</span>
+          <span className="text-xs font-bold text-textcolor">
+            {product.pricePerUnit} TZS
+          </span>
         </div>
         {exists ? (
           <Link
             to="/dashboard/cart"
-            className="mt-auto flex w-full items-center justify-center gap-2 rounded-md bg-[#811818] py-2 text-base font-bold text-[#FFFFFF] shadow-md transition-colors hover:bg-[#6b1414]"
+            className="mt-auto flex w-full items-center justify-center gap-2 rounded-md bg-textsecondary py-2 text-base font-bold text-bgcolor shadow-md transition-colors"
             aria-label="Go to cart"
           >
             <ShoppingCart className="h-5 w-5" />
@@ -79,7 +83,7 @@ export default function ProductCard({ product }) {
           </Link>
         ) : (
           <button
-            className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-[#811818] py-2 text-base font-bold text-[#FFFFFF] shadow-md transition-colors hover:bg-[#6b1414] disabled:opacity-50"
+            className="mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-textsecondary py-2 text-base font-bold text-bgcolor shadow-md transition-colors disabled:opacity-50"
             onClick={handleAddToCart}
             disabled={mutation.isPending}
             aria-label="Add to cart"

@@ -28,22 +28,20 @@ export default function SiteList() {
   }, [searchTerm, sites]);
 
   return (
-    <div className="min-h-screen bg-neutral/5">
-      {/* Main Content */}
+    <div className="min-h-screen bg-bgcolor">
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* Search and Filter */}
         <div className="mb-8">
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <h2 className="text-2xl font-bold text-textdark">
+            <h2 className="text-2xl font-bold text-textcolor">
               Available Sites
             </h2>
             <div className="flex w-full flex-col gap-3 sm:flex-row md:w-auto">
               <div className="relative w-full max-w-md">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-textlight" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-bgfooter" />
                 <input
                   type="text"
                   placeholder="Search projects..."
-                  className="w-full rounded-lg border border-accent/20 py-2 pl-10 pr-4 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                  className="w-full rounded-lg border border-textcolor/20 bg-textcolor py-2 pl-10 pr-4 text-bgfooter outline-none placeholder:text-bgfooter/30 focus:border-bgfooter focus:ring-1 focus:ring-textsecondary"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   aria-label="Search construction sites"
@@ -51,7 +49,7 @@ export default function SiteList() {
                 />
               </div>
               <button
-                className="flex items-center justify-center gap-2 rounded-lg border border-accent/20 bg-white px-4 py-2 hover:bg-neutral/5"
+                className="flex items-center justify-center gap-2 rounded-lg border border-textcolor bg-textcolor px-4 py-2 hover:bg-bgfooter hover:text-textcolor"
                 aria-label="Filter sites"
                 disabled={isPending}
               >
@@ -64,7 +62,7 @@ export default function SiteList() {
           {/* Loading and Error States */}
           {isPending && (
             <div className="flex justify-center py-8">
-              <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-primary"></div>
+              <div className="h-8 w-8 animate-ping rounded-full border-2 border-textcolor"></div>
             </div>
           )}
 
@@ -74,7 +72,6 @@ export default function SiteList() {
             </div>
           )} */}
 
-          {/* Site Cards */}
           <div className="mt-6 space-y-4">
             {!isPending && !isError && filteredSites.length > 0
               ? filteredSites.map((site) => (

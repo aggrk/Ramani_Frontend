@@ -14,7 +14,7 @@ export default function ActivityIndicator({ size = "md", className = "" }) {
   return (
     <div className="flex justify-center">
       <div
-        className={`animate-spin rounded-full border-t-2 border-b-2 border-primary ${sizeClass} ${className}`}
+        className={`animate-ping rounded-full border-2 border-textcolor ${sizeClass} ${className}`}
       ></div>
     </div>
   );

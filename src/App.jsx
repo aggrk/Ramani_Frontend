@@ -32,6 +32,7 @@ import UsersList from "./dashboard/admin/UsersList";
 import HardwareList from "./dashboard/admin/HardwareList";
 import EditUser from "./dashboard/admin/EditUser";
 import AddUser from "./dashboard/admin/AddUser";
+import ApplicationDetails from "./dashboard/application/ApplicationDetails";
 
 export default function App() {
   return (
@@ -54,7 +55,10 @@ export default function App() {
               <Route path="edit-site" element={<EditSite />} />
             </Route>
           </Route>
-          <Route path="applications" element={<MyApplications />} />
+          <Route path="applications">
+            <Route index element={<MyApplications />} />
+            <Route path=":id" element={<ApplicationDetails />} />
+          </Route>
           <Route
             path="approved-applications"
             element={<ApprovedApplications />}

@@ -31,16 +31,17 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral/5 flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24">
+    <div className="flex min-h-screen items-center bg-bgcolor">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-col items-center justify-center gap-12 lg:flex-row lg:gap-24">
           {/* Login Form - Compact and Centered */}
           <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-textdark">
-                Welcome back to <span className="text-primary">Ramani</span>
+            <div className="mb-8 text-center">
+              <h2 className="text-2xl font-bold text-textcolor md:text-3xl">
+                Welcome back to{" "}
+                <span className="text-textsecondary">Ramani</span>
               </h2>
-              <p className="text-textlight mt-2 text-sm">
+              <p className="mt-2 text-sm text-textsecondary">
                 Connect with Tanzania's construction network
               </p>
             </div>
@@ -51,7 +52,7 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-textdark mb-1"
+                  className="mb-1 block text-sm font-medium text-textcolor"
                 >
                   Email Address
                 </label>
@@ -66,10 +67,10 @@ export default function Login() {
                     },
                   })}
                   placeholder="your@email.com"
-                  className="w-full px-3 py-2.5 outline-none text-sm bg-white border border-accent/20 rounded focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+                  className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-neutral focus:ring-1 focus:ring-neutral"
                 />
                 {errors.email && (
-                  <span className="text-red-500 text-xs">
+                  <span className="text-xs text-red-500">
                     {errors.email.message}
                   </span>
                 )}
@@ -77,16 +78,16 @@ export default function Login() {
 
               {/* Password Field */}
               <div>
-                <div className="flex justify-between items-center mb-1">
+                <div className="mb-1 flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-textdark"
+                    className="block text-sm font-medium text-textcolor"
                   >
                     Password
                   </label>
                   <Link
                     to="/forgot-password"
-                    className="text-xs text-primary hover:underline"
+                    className="text-xs text-textsecondary hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -110,16 +111,16 @@ export default function Login() {
                       },
                     })}
                     placeholder="Enter your password"
-                    className="w-full px-3 py-2.5 text-sm outline-none bg-white border border-accent/20 rounded focus:ring-1 focus:ring-primary focus:border-primary transition-all pr-9"
+                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 pr-9 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-neutral focus:ring-1 focus:ring-neutral"
                   />
                   {errors.password && (
-                    <span className="text-red-500 text-xs">
+                    <span className="text-xs text-red-500">
                       {errors.password.message}
                     </span>
                   )}
                   <button
                     type="button"
-                    className="absolute  right-2 top-1/2 transform -translate-y-1/2 text-textlight hover:text-primary transition-colors"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textcolor transition-colors hover:text-neutral"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -134,37 +135,37 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-4 py-2.5 px-4 bg-primary text-white text-sm font-medium rounded hover:bg-primary-dark transition-colors shadow-sm"
+                className="hover:bg-primary-dark mt-4 w-full rounded bg-textsecondary px-4 py-2.5 text-sm font-medium text-bgcolor shadow-sm transition-colors"
               >
                 {isLoading ? (
-                  <ActivityIndicator size="xs" className="border-white" />
+                  <ActivityIndicator size="xs" className="border-bgcolor" />
                 ) : (
                   "Sign In"
                 )}
               </button>
             </form>
 
-            <div className="flex items-center my-6">
-              <div className="flex-1 border-t border-accent/20"></div>
-              <span className="px-3 text-xs text-textlight">OR</span>
+            <div className="my-6 flex items-center">
+              <div className="flex-1 border-t border-textsecondary"></div>
+              <span className="px-3 text-xs text-textcolor">OR</span>
               <div className="flex-1 border-t border-accent/20"></div>
             </div>
 
             <div className="space-y-3">
               <button
                 type="button"
-                className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-accent/20 rounded text-sm font-medium text-textdark hover:border-primary/50 transition-colors"
+                className="flex w-full items-center justify-center gap-2 rounded border border-textsecondary px-4 py-2 text-sm font-medium text-textcolor transition-colors hover:border-neutral"
               >
                 <FaGoogle className="h-5 w-5" />
                 Continue with Google
               </button>
             </div>
 
-            <p className="text-center text-sm text-textlight mt-6">
+            <p className="mt-6 text-center text-sm text-textsecondary">
               Don't have an account?
               <Link
                 to="/register"
-                className="text-primary font-medium hover:underline"
+                className="font-medium text-textcolor hover:underline"
               >
                 {" "}
                 Sign up
@@ -173,17 +174,17 @@ export default function Login() {
           </div>
 
           {/* Illustration Section */}
-          <div className="hidden lg:block w-full max-w-md">
+          <div className="hidden w-full max-w-md lg:block">
             <img
               src="images/login.svg"
               alt="Construction professional at work"
               className="w-full"
             />
-            <div className="text-center mt-6 space-y-2">
-              <h4 className="text-lg font-medium text-textdark">
+            <div className="mt-6 space-y-2 text-center">
+              <h4 className="text-lg font-medium text-textcolor">
                 Streamline Your Construction Workflow
               </h4>
-              <p className="text-sm text-textlight">
+              <p className="text-sm text-textsecondary">
                 Access suppliers, projects, and professionals in one place
               </p>
             </div>

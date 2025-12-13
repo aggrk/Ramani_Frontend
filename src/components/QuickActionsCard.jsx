@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
 
-export default function QuickActionsCard({ link, icon, title }) {
+export default function QuickActionsCard({
+  link,
+  icon = "",
+  title,
+  onClick = "",
+}) {
   return (
     <Link
       to={`/dashboard/${link}`}
-      className="flex transform flex-col items-center rounded-xl border border-accent/10 bg-white p-5 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+      onClick={onClick}
+      className="flex items-center gap-3 rounded-lg border border-transparent p-3 transition-all hover:border-textcolor hover:bg-textcolor/10"
     >
-      <div className="mb-3 rounded-full bg-primary/10 p-3 text-primary">
-        {icon}
-      </div>
-      <span className="text-sm font-medium text-textdark">{title}</span>
+      {icon && (
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-textcolor text-xl text-bgcolor transition-all group-hover:bg-primary/30">
+          {icon}
+        </div>
+      )}
+      <span className="text-sm font-medium tracking-wide text-textsecondary transition-colors group-hover:text-primary">
+        {title}
+      </span>
     </Link>
   );
 }

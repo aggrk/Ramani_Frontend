@@ -6,14 +6,13 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
     <>
       {isMenuOpen && (
         <div className="sm:hidden" id="mobile-menu">
-          <div className="fixed inset-x-0 top-16 z-50 border-t border-accent/20 bg-bgmobile px-4 pb-6 pt-4 shadow-xl backdrop-blur-md">
-            {/* Navigation links */}
+          <div className="fixed inset-x-0 top-16 z-50 border-t border-textcolor/20 bg-bgfooter px-4 pb-6 pt-4 shadow-xl backdrop-blur-md">
             <ul className="mb-4 space-y-2">
               <li>
                 <Link
                   to="/"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-textmobile transition"
+                  className="block px-4 py-3 text-base font-medium text-textcolor"
                 >
                   Home
                 </Link>
@@ -23,7 +22,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
                 <Link
                   to="/about"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-textmobile transition"
+                  className="block px-4 py-3 text-base font-medium text-textcolor"
                 >
                   About
                 </Link>
@@ -33,7 +32,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
                 <Link
                   to="/projects"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-textmobile transition"
+                  className="block px-4 py-3 text-base font-medium text-textcolor"
                 >
                   Hardware
                 </Link>
@@ -43,20 +42,19 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
                 <Link
                   to="/sites"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-textmobile transition"
+                  className="block px-4 py-3 text-base font-medium text-textcolor"
                 >
                   Sites
                 </Link>
               </li>
             </ul>
 
-            {/* Language selector */}
-            <div className="mb-4 flex items-center justify-center border-y border-accent/20 py-3">
+            <div className="mb-4 flex items-center justify-center border-y border-textcolor/20 py-3">
               <GlobeAltIcon className="mr-2 h-4 w-4 text-textmobile" />
               <select
                 name="lang"
                 aria-label="Select language"
-                className="cursor-pointer rounded-md bg-transparent px-2 py-1 text-sm font-medium text-textmobile focus:outline-none focus:ring-2 focus:ring-textmobile"
+                className="cursor-pointer rounded-md bg-transparent px-2 py-1 text-sm font-medium text-textcolor focus:outline-none focus:ring-2 focus:ring-textcolor"
               >
                 <option value="en" className="bg-neutral text-textdark">
                   English
@@ -65,15 +63,14 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
                   Kiswahili
                 </option>
               </select>
-              <ChevronDownIcon className="ml-1 h-3 w-3 text-textdark/70" />
+              <ChevronDownIcon className="ml-1 h-3 w-3 text-bgcolor" />
             </div>
 
-            {/* Auth buttons */}
             <div className="space-y-3">
               <Link
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full rounded-lg border border-textmobile px-4 py-3 text-center font-medium text-textmobile"
+                className="block w-full rounded-lg border border-textcolor px-4 py-3 text-center font-medium text-textcolor"
               >
                 Log In
               </Link>
@@ -81,7 +78,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
               <Link
                 to="/register"
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full rounded-lg bg-primary px-4 py-3 text-center font-semibold text-white transition hover:shadow-lg"
+                className="block w-full rounded-lg bg-textcolor px-4 py-3 text-center font-semibold text-bgcolor transition hover:shadow-lg"
               >
                 Sign Up →
               </Link>
