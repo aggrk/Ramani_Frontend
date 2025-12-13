@@ -21,8 +21,8 @@ export default function Cart() {
           <h3 className="text-lg font-bold italic text-textsecondary">
             {cartItems.data?.length} products in Cart
           </h3>
-          <div className="flex min-h-screen w-full flex-col justify-between md:flex-row">
-            <div className="flex h-screen flex-col gap-5 sm:border-r sm:border-textcolor/20 md:w-3/4">
+          <div className="flex h-screen w-full flex-col justify-between md:flex-row">
+            <div className="flex flex-col gap-5 sm:border-r sm:border-textcolor/20 md:w-3/4">
               {cartItems.data.map((item) => {
                 return (
                   <div key={item._id} className="flex">

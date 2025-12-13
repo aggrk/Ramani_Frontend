@@ -51,25 +51,25 @@ export default function UpdateProfile() {
   return (
     <div className="min-h-screen py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-4 text-xl font-bold uppercase">
+        <h1 className="mb-4 text-xl font-bold uppercase text-textcolor">
           Update {fieldLabel}
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <label className="text-sm font-semibold sm:text-lg">
+          <label className="text-sm font-semibold text-textcolor sm:text-lg">
             {fieldLabel}
           </label>
           <input
             type={field === "email" ? "email" : "text"}
             defaultValue={value}
             {...register(field, { required: true })}
-            className="w-full rounded-md border px-3 py-2 sm:w-full md:w-1/2 lg:w-1/3"
+            className="w-full rounded-md border bg-textcolor px-3 py-2 text-bgfooter sm:w-full md:w-1/2 lg:w-1/3"
           />
           <button
             type="submit"
-            className="w-full rounded-md bg-[#B22222] py-2 text-white hover:bg-[#d33] md:w-1/2 lg:w-1/3"
+            className="w-full rounded-md bg-textsecondary py-2 text-bgcolor md:w-1/2 lg:w-1/3"
           >
             {isLoading ? (
-              <ActivityIndicator size="xs" className="border-white" />
+              <ActivityIndicator size="xs" className="border-textcolor" />
             ) : (
               "Save Changes"
             )}

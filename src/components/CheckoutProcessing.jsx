@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function CheckoutProcessing({ total }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-screen w-full bg-textcolor px-4 py-3 shadow-lg md:static md:right-0 md:mx-0 md:w-auto md:bg-transparent md:px-0 md:py-0 md:shadow-none">
+    <div className="fixed -bottom-0 left-0 right-0 w-full bg-bgfooter px-4 py-3 shadow-lg md:static md:right-0 md:mx-0 md:w-auto md:bg-transparent md:px-0 md:py-0 md:shadow-none">
       <div className="mx-auto max-w-7xl md:mx-0 md:w-full">
         <div className="flex flex-col gap-3 md:flex-col md:items-start">
           <p className="text-sm font-bold text-textcolor opacity-75 md:text-base">

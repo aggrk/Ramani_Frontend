@@ -41,7 +41,6 @@ export default function Register() {
     <div className="flex min-h-screen items-center bg-bgcolor">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col items-center justify-center gap-12 lg:flex-row lg:gap-16">
-          {/* Compact Registration Form */}
           <div className="w-full max-w-md">
             <div className="mb-8 text-center">
               <h3 className="text-2xl font-bold text-textcolor md:text-3xl">
@@ -78,7 +77,7 @@ export default function Register() {
                 <div key={field.id}>
                   <label
                     htmlFor={field.id}
-                    className="text-textdark mb-1 block text-sm font-medium"
+                    className="mb-1 block text-sm font-medium text-textcolor"
                   >
                     {field.label}
                   </label>
@@ -117,7 +116,7 @@ export default function Register() {
                         },
                       }),
                     })}
-                    className="w-full rounded border border-textsecondary bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-textsecondary focus:ring-1 focus:ring-textsecondary"
+                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-textsecondary focus:ring-1 focus:ring-textsecondary"
                   />
                   {errors[field.id] && (
                     <p className="mt-1 text-xs text-red-500">
@@ -127,11 +126,10 @@ export default function Register() {
                 </div>
               ))}
 
-              {/* Password Field */}
               <div>
                 <label
                   htmlFor="password"
-                  className="text-textdark mb-1 block text-sm font-medium"
+                  className="mb-1 block text-sm font-medium text-textcolor"
                 >
                   Password
                 </label>
@@ -169,11 +167,10 @@ export default function Register() {
                 </div>
               </div>
 
-              {/* Confirm Password Field */}
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="text-textdark mb-1 block text-sm font-medium"
+                  className="mb-1 block text-sm font-medium text-textcolor"
                 >
                   Confirm Password
                 </label>
@@ -229,7 +226,6 @@ export default function Register() {
             </p>
           </div>
 
-          {/* Illustration Section */}
           <div className="hidden w-full max-w-md lg:block">
             <img
               src="images/register.svg"
