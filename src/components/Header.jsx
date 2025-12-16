@@ -8,49 +8,55 @@ import {
 import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import LogoSection from "./LogoSection";
+import { motion } from "motion/react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-textsecondary border-opacity-25 bg-bgcolor backdrop-blur-md">
+    <motion.header
+      // initial={{ opacity: 0, y: -6 }}
+      // animate={{ opacity: 1, y: 6 }}
+      // transition={{ duration: 0.8 }}
+      className="sticky top-0 z-50 w-full border-b border-textsecondary border-opacity-25 bg-bgcolor backdrop-blur-md"
+    >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8 lg:py-4">
         <LogoSection />
 
         <div className="hidden items-center gap-12 lg:flex">
           <ul className="flex items-center gap-8">
-            <li>
+            <motion.li whileHover={{ scale: 1.05 }}>
               <Link
                 to="/"
                 className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
               >
                 Home
               </Link>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.05 }}>
               <Link
                 to="/about"
                 className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
               >
                 About
               </Link>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.05 }}>
               <Link
                 to="/projects"
                 className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
               >
                 Shops
               </Link>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.05 }}>
               <Link
                 to="/sites"
                 className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
               >
                 Sites
               </Link>
-            </li>
+            </motion.li>
           </ul>
         </div>
 
@@ -73,21 +79,28 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="rounded-lg border border-textsecondary px-5 py-2.5 font-medium text-textcolor shadow-sm transition-all duration-300 hover:bg-textcolor hover:text-bgcolor"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.9, y: 1 }}
             >
-              Log In
-            </Link>
-            <Link
-              to="/register"
-              className="group flex items-center rounded-lg bg-textsecondary px-5 py-2.5 font-semibold text-bgcolor shadow-md transition duration-300 hover:border hover:border-textcolor hover:bg-bgcolor hover:text-textcolor hover:shadow-lg"
+              <Link
+                to="/login"
+                className="rounded-lg border border-textsecondary px-5 py-2.5 font-medium text-textcolor shadow-sm transition-all duration-300"
+              >
+                Log In
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.9, y: 1 }}
             >
-              Sign Up
-              <span className="ml-2 transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
+              <Link
+                to="/register"
+                className="items-center rounded-lg bg-textsecondary px-5 py-2.5 text-bgcolor shadow-md transition duration-300 hover:shadow-lg"
+              >
+                Sign Up
+              </Link>
+            </motion.div>
           </div>
         </div>
 
@@ -106,6 +119,6 @@ export default function Header() {
         </div>
       </nav>
       <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-    </header>
+    </motion.header>
   );
 }

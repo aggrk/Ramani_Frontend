@@ -7,6 +7,7 @@ import ActivityIndicator from "../components/ActivityIndicator";
 import Error from "../components/Error";
 import Success from "../components/Success";
 import { useTimedMessage } from "../hooks/useTimedMessage";
+import { motion } from "motion/react";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -206,7 +207,10 @@ export default function Register() {
                 </div>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.9, y: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 type="submit"
                 className="hover:bg-primary-dark mt-4 w-full rounded bg-textsecondary px-4 py-2.5 text-sm font-medium text-bgcolor"
               >
@@ -215,7 +219,7 @@ export default function Register() {
                 ) : (
                   "Create Account"
                 )}
-              </button>
+              </motion.button>
             </form>
 
             <p className="mt-6 text-center text-sm text-textsecondary">

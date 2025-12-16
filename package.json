@@ -18,6 +18,7 @@
     "axios": "^1.9.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
+    "motion": "^12.23.26",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",

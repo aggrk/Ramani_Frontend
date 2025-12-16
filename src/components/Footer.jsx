@@ -2,6 +2,8 @@ import { MailIcon, PhoneCallIcon } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
+import AnimatedButton from "./AnimatedButton";
 
 export default function Footer() {
   return (
@@ -56,7 +58,7 @@ export default function Footer() {
                   href="mailto:support@ramani.co.tz"
                   className="break-all text-sm text-textfooter transition-colors hover:text-textcolor sm:break-normal sm:text-base"
                 >
-                  support@ramani.co.tz
+                  support@niperamani.com
                 </a>
               </div>
               <div className="pt-2">
@@ -65,9 +67,9 @@ export default function Footer() {
                   className="w-full rounded-lg border border-textfooter/30 bg-textfooter/10 px-3 py-2 text-sm text-textcolor placeholder-textcolor/30 transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-textcolor/40 sm:px-4 sm:py-3 sm:text-base"
                   rows="3"
                 ></textarea>
-                <button className="hover:bg-primary-dark mt-2 w-full rounded-lg bg-primary px-4 py-2 text-sm text-white shadow-sm transition-colors hover:shadow-md sm:w-auto sm:px-5 sm:text-base">
+                <AnimatedButton className="hover:bg-primary-dark mt-2 w-full rounded-lg bg-primary px-4 py-2 text-sm text-white shadow-sm transition-colors hover:shadow-md sm:w-auto sm:px-5 sm:text-base">
                   Send Message
-                </button>
+                </AnimatedButton>
               </div>
             </div>
           </div>
@@ -77,33 +79,39 @@ export default function Footer() {
               Connect With Us
             </h3>
             <div className="flex justify-start space-x-4 sm:justify-start sm:space-x-5">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.9, y: 1 }}
                 href="#"
-                className="group rounded-full bg-bgcolor p-2.5 transition-all duration-300 hover:bg-bgcolor/30 sm:p-3"
+                className="group rounded-full bg-bgcolor p-2.5 hover:bg-bgcolor/30 sm:p-3"
                 aria-label="WhatsApp"
               >
                 <span className="text-textfooter transition-colors group-hover:text-textcolor">
                   <FaWhatsapp className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.9, y: 1 }}
                 href="#"
-                className="group rounded-full bg-bgcolor p-2.5 transition-all duration-300 hover:bg-bgcolor/30 sm:p-3"
+                className="group rounded-full bg-bgcolor p-2.5 hover:bg-bgcolor/30 sm:p-3"
                 aria-label="Instagram"
               >
                 <span className="text-textfooter transition-colors group-hover:text-textcolor">
                   <FaInstagram className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.9, y: 1 }}
                 href="#"
-                className="group rounded-full bg-bgcolor p-2.5 transition-all duration-300 hover:bg-bgcolor/30 sm:p-3"
+                className="group rounded-full bg-bgcolor p-2.5 hover:bg-bgcolor/30 sm:p-3"
                 aria-label="Twitter"
               >
                 <span className="text-textfooter transition-colors group-hover:text-textcolor">
                   <FaXTwitter className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>

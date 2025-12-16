@@ -72,7 +72,7 @@ export default function SiteList() {
             </div>
           )} */}
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-4 text-lg text-textcolor">
             {!isPending && !isError && filteredSites.length > 0
               ? filteredSites.map((site) => (
                   <SiteCard key={site._id || site.id} site={site} />

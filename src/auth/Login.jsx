@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { AuthenticationContext } from "../contexts/AuthContext";
 import Error from "../components/Error";
 import ActivityIndicator from "../components/ActivityIndicator";
 import { useTimedMessage } from "../hooks/useTimedMessage";
+import { motion } from "motion/react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -132,7 +133,10 @@ export default function Login() {
                 </div>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.9, y: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 type="submit"
                 disabled={isLoading}
                 className="hover:bg-primary-dark mt-4 w-full rounded bg-textsecondary px-4 py-2.5 text-sm font-medium text-bgcolor shadow-sm transition-colors"
@@ -142,19 +146,19 @@ export default function Login() {
                 ) : (
                   "Sign In"
                 )}
-              </button>
+              </motion.button>
             </form>
 
             <div className="my-6 flex items-center">
               <div className="flex-1 border-t border-textsecondary"></div>
               <span className="px-3 text-xs text-textcolor">OR</span>
-              <div className="flex-1 border-t border-accent/20"></div>
+              <div className="border-accent/20 flex-1 border-t"></div>
             </div>
 
             <div className="space-y-3">
               <button
                 type="button"
-                className="flex w-full items-center justify-center gap-2 rounded border border-textsecondary px-4 py-2 text-sm font-medium text-textcolor transition-colors hover:border-neutral"
+                className="flex w-full items-center justify-center gap-2 rounded border border-textsecondary px-4 py-2 text-sm font-medium text-textcolor transition-colors"
               >
                 <FaGoogle className="h-5 w-5" />
                 Continue with Google

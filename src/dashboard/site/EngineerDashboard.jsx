@@ -1,12 +1,11 @@
 import {
   Building,
   Calendar,
-  ChevronRight,
   FileText,
   HardHat,
-  Plus,
-  Search,
-  SettingsIcon,
+  PlusCircle,
+  Settings,
+  Star,
   Truck,
   UserCircle,
 } from "lucide-react";
@@ -15,7 +14,6 @@ import { useAuth } from "../../hooks/useAuth";
 import useCartItems from "../../hooks/useCartItems";
 import useFetch from "../../hooks/useFetch";
 import StatsCard from "../../components/StatsCard";
-import QuickActionsCard from "../../components/QuickActionsCard";
 
 export default function EngineerDashboard() {
   const { user } = useAuth();
@@ -26,97 +24,102 @@ export default function EngineerDashboard() {
 
   return (
     <>
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <h2 className="mb-1 text-2xl font-bold text-textdark sm:text-3xl">
-              Welcome back, {name.split(" ")[0]}!
-            </h2>
-            <p className="text-textlight">
-              Here's what's happening with your projects today
-            </p>
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-4">
+          <div className="col-span-1 hidden h-screen items-start gap-8 rounded-md bg-bgfooter pl-6 sm:flex sm:flex-col">
+            <div className="mt-12 flex gap-4">
+              <UserCircle className="h-6 w-6 text-textfooter" />
+              <Link
+                to="profile"
+                className="text-base text-textcolor hover:underline"
+              >
+                Profile
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <HardHat className="h-6 w-6 text-textfooter" />
+              <Link
+                to="hardware"
+                className="text-base text-textcolor hover:underline"
+              >
+                Shops
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <Building className="h-6 w-6 text-textfooter" />
+              <Link
+                to="sites"
+                className="text-base text-textcolor hover:underline"
+              >
+                My Sites
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <FileText className="h-6 w-6 text-textfooter" />
+              <Link
+                to="received-applications"
+                className="text-base text-textcolor hover:underline"
+              >
+                Applications
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <PlusCircle className="h-6 w-6 text-textfooter" />
+              <Link
+                to="add-site"
+                className="text-base text-textcolor hover:underline"
+              >
+                Add Site
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <Star className="h-6 w-6 fill-textfooter text-textfooter" />
+              <Link to="" className="text-base text-textcolor hover:underline">
+                Favorite Products
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <Settings className="h-6 w-6 text-textfooter" />
+              <Link
+                to="settings"
+                className="text-base text-textcolor hover:underline"
+              >
+                Settings
+              </Link>
+            </div>
           </div>
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-textlight" />
-            <input
-              type="text"
-              aria-label="Search sites, materials, or suppliers"
-              placeholder="Search sites, materials, or suppliers..."
-              className="w-full rounded-lg border border-accent/20 py-2.5 pl-10 pr-4 transition-all focus:border-primary focus:ring-2 focus:ring-primary"
-            />
-          </div>
-        </div>
-
-        <div className="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <StatsCard
-            length={applications?.length}
-            title="Applications"
-            link="received-applications"
-            icon={<FileText className="h-5 w-5" />}
-          />
-          <StatsCard
-            length={cartItems?.data?.length}
-            title="Hardware Orders"
-            link=""
-            icon={<HardHat className="h-5 w-5" />}
-          />
-          <StatsCard
-            length={5}
-            title="Pending Deliveries"
-            link=""
-            icon={<Truck className="h-5 w-5" />}
-          />
-          <StatsCard
-            length={7}
-            title="Upcoming Tasks"
-            link=""
-            icon={<Calendar className="h-5 w-5" />}
-          />
-        </div>
-
-        <div className="mb-8">
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-textdark">
-              Quick Actions
-            </h3>
-            {/* <Link
-              to="/dashboard/actions"
-              className="flex items-center text-sm text-primary hover:underline"
-            >
-              See all <ChevronRight className="ml-1 h-4 w-4" />
-            </Link> */}
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            <QuickActionsCard
-              link="profile"
-              icon={<UserCircle className="h-6 w-6" />}
-              title="My Profile"
-            />
-            <QuickActionsCard
-              link="sites"
-              icon={<Building className="h-6 w-6" />}
-              title="My Sites"
-            />
-            <QuickActionsCard
-              link="hardware"
-              icon={<HardHat className="h-6 w-6" />}
-              title="Shop"
-            />
-            <QuickActionsCard
-              link="received-applications"
-              icon={<FileText className="h-6 w-6" />}
-              title="Applications"
-            />
-            <QuickActionsCard
-              link="add-site"
-              icon={<Plus className="h-6 w-6" />}
-              title="Add Site"
-            />
-            <QuickActionsCard
-              link="settings"
-              icon={<SettingsIcon className="h-6 w-6" />}
-              title="Settings"
-            />
+          <div className="w-full sm:col-span-3">
+            <div className="flex w-full flex-col rounded-lg bg-bgfooter shadow-md">
+              <h2 className="p-4 text-2xl font-extrabold tracking-tight text-textcolor sm:text-4xl">
+                Welcome Back, {name.split(" ")[0]}!
+              </h2>
+              <div className="grid w-full grid-cols-2 gap-2 p-4 sm:flex sm:flex-wrap sm:gap-2">
+                <StatsCard
+                  length={applications?.length}
+                  title="Applications"
+                  link="received-applications"
+                  icon={<FileText className="h-8 w-8 text-textsecondary" />}
+                />
+                <StatsCard
+                  length={cartItems?.data?.length}
+                  title="Hardware Orders"
+                  link=""
+                  icon={<HardHat className="h-8 w-8 text-textsecondary" />}
+                />
+                <StatsCard
+                  length={5}
+                  title="Pending Deliveries"
+                  link=""
+                  icon={<Truck className="h-8 w-8 text-textsecondary" />}
+                />
+                <StatsCard
+                  length={7}
+                  title="Upcoming Tasks"
+                  link=""
+                  icon={<Calendar className="h-8 w-8 text-textsecondary" />}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
