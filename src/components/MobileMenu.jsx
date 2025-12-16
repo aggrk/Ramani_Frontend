@@ -6,7 +6,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
     <>
       {isMenuOpen && (
         <div className="sm:hidden" id="mobile-menu">
-          <div className="fixed inset-x-0 top-16 z-50 border-t border-textcolor/20 bg-bgfooter px-4 pb-6 pt-4 shadow-xl backdrop-blur-md">
+          <div className="fixed inset-x-0 top-16 z-50 h-screen border-t border-textcolor/20 bg-bgfooter px-4 pb-6 pt-4 shadow-xl backdrop-blur-md">
             <ul className="mb-4 space-y-2">
               <li>
                 <Link
@@ -50,16 +50,16 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
             </ul>
 
             <div className="mb-4 flex items-center justify-center border-y border-textcolor/20 py-3">
-              <GlobeAltIcon className="mr-2 h-4 w-4 text-textmobile" />
+              <GlobeAltIcon className="text-textmobile mr-2 h-4 w-4" />
               <select
                 name="lang"
                 aria-label="Select language"
                 className="cursor-pointer rounded-md bg-transparent px-2 py-1 text-sm font-medium text-textcolor focus:outline-none focus:ring-2 focus:ring-textcolor"
               >
-                <option value="en" className="bg-neutral text-textdark">
+                <option value="en" className="text-textdark bg-neutral">
                   English
                 </option>
-                <option value="sw" className="bg-neutral text-textdark">
+                <option value="sw" className="text-textdark bg-neutral">
                   Kiswahili
                 </option>
               </select>
@@ -80,7 +80,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }) {
                 onClick={() => setIsMenuOpen(false)}
                 className="block w-full rounded-lg bg-textcolor px-4 py-3 text-center font-semibold text-bgcolor transition hover:shadow-lg"
               >
-                Sign Up →
+                Sign Up
               </Link>
             </div>
           </div>
