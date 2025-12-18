@@ -21,43 +21,44 @@ export default function Header() {
       className="sticky top-0 z-50 w-full border-b border-textsecondary border-opacity-25 bg-bgcolor backdrop-blur-md"
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8 lg:py-4">
-        <LogoSection />
-
-        <div className="hidden items-center gap-12 lg:flex">
-          <ul className="flex items-center gap-8">
-            <motion.li whileHover={{ scale: 1.05 }}>
-              <Link
-                to="/"
-                className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
-              >
-                Home
-              </Link>
-            </motion.li>
-            <motion.li whileHover={{ scale: 1.05 }}>
-              <Link
-                to="/about"
-                className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
-              >
-                About
-              </Link>
-            </motion.li>
-            <motion.li whileHover={{ scale: 1.05 }}>
-              <Link
-                to="/projects"
-                className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
-              >
-                Shops
-              </Link>
-            </motion.li>
-            <motion.li whileHover={{ scale: 1.05 }}>
-              <Link
-                to="/sites"
-                className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
-              >
-                Sites
-              </Link>
-            </motion.li>
-          </ul>
+        <div className="flex gap-12">
+          <LogoSection />
+          <div className="hidden items-center gap-12 lg:flex">
+            <ul className="flex items-center gap-8">
+              <motion.li whileHover={{ scale: 1.05 }}>
+                <Link
+                  to="/"
+                  className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
+                >
+                  Home
+                </Link>
+              </motion.li>
+              <motion.li whileHover={{ scale: 1.05 }}>
+                <Link
+                  to="/about"
+                  className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
+                >
+                  About
+                </Link>
+              </motion.li>
+              <motion.li whileHover={{ scale: 1.05 }}>
+                <Link
+                  to="/projects"
+                  className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
+                >
+                  Shops
+                </Link>
+              </motion.li>
+              <motion.li whileHover={{ scale: 1.05 }}>
+                <Link
+                  to="/sites"
+                  className="group relative py-2 text-base font-medium text-textcolor transition-all duration-300 hover:text-textsecondary xl:text-lg"
+                >
+                  Sites
+                </Link>
+              </motion.li>
+            </ul>
+          </div>
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
