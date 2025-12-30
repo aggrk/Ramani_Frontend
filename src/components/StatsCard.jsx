@@ -1,7 +1,6 @@
-import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function StatsCard({ length, title, icon }) {
+export default function StatsCard({ length, title, icon, link = "" }) {
   return (
     <div className="flex w-full flex-col justify-between gap-y-2 rounded-lg bg-bgcolor p-4 sm:w-40">
       <div className="flex items-center justify-start">{icon}</div>
@@ -11,7 +10,11 @@ export default function StatsCard({ length, title, icon }) {
           {length || 0}
         </p>
         <h3 className="text-sm font-medium text-textcolor">{title}</h3>
-        <p className="text-xs text-textsecondary">+10% from yesterday</p>
+        {link && (
+          <Link to={link} className="text-xs text-textsecondary">
+            View All
+          </Link>
+        )}
       </div>
     </div>
   );

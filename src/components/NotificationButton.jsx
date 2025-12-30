@@ -2,7 +2,7 @@ import { Bell } from "lucide-react";
 import { useState } from "react";
 
 export default function NotificationButton() {
-  const [notifications] = useState(3);
+  const [notifications] = useState(0);
 
   return (
     <button

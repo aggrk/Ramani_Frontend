@@ -24,10 +24,10 @@ export default function MobileUserList({ user }) {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow">
-      <div className="mb-2 font-semibold text-textmobile">{user.name}</div>
+    <div className="rounded-xl bg-textcolor p-4 shadow">
+      <div className="mb-2 font-semibold text-bgcolor">{user.name}</div>
 
-      <div className="space-y-1 text-sm text-textdark">
+      <div className="space-y-1 text-sm text-bgfooter">
         <p>
           <span className="font-semibold">Email: </span>
           {user.email}
@@ -55,16 +55,13 @@ export default function MobileUserList({ user }) {
       </div>
 
       <div className="mt-4 flex items-center justify-between">
-        <Link
-          to={`${user._id}`}
-          className="text-secondary transition-colors hover:text-primary"
-        >
+        <Link to={`${user._id}`} className="text-textalt">
           <Edit className="h-5 w-5" />
         </Link>
 
         <button
           onClick={() => handleDeleteUser(user._id)}
-          className="text-warning transition-colors hover:text-primary"
+          className="text-warning transition-colors"
         >
           <Trash2 className="h-5 w-5" />
         </button>

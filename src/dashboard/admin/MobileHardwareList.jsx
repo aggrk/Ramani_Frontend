@@ -40,10 +40,10 @@ export default function MobileHardwareList({ hardware }) {
   const filename = hardware.licenseUpload.split("/")[1];
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow">
-      <div className="mb-2 font-semibold text-textmobile">{hardware.name}</div>
+    <div className="rounded-xl bg-textcolor p-4 shadow">
+      <div className="mb-2 font-semibold text-bgcolor">{hardware.name}</div>
 
-      <div className="space-y-1 text-sm text-textdark">
+      <div className="space-y-1 text-sm text-bgfooter">
         <p>
           <span className="font-semibold">Email: </span>
           {hardware.email}
@@ -61,8 +61,8 @@ export default function MobileHardwareList({ hardware }) {
           <span
             className={`rounded-full px-3 py-1 text-xs font-medium ${
               hardware.status === "verified"
-                ? "bg-secondary text-white"
-                : "bg-warning text-white"
+                ? "bg-bgfooter text-textcolor"
+                : "text-warning"
             }`}
           >
             {hardware.status}
@@ -85,14 +85,14 @@ export default function MobileHardwareList({ hardware }) {
         <button
           disabled={mutation.isPending}
           onClick={() => handleApproveHardware(hardware._id)}
-          className={`${mutation.isPending && "opacity-50"} rounded-full bg-secondary px-3 py-1 text-sm text-neutral`}
+          className={`${mutation.isPending && "opacity-50"} bg-secondary rounded-full px-3 py-1 text-sm text-textalt`}
         >
           {mutation.isPending ? "Approving..." : "Approve"}
         </button>
 
         <button
           onClick={() => deleteMutation.mutate(hardware._id)}
-          className="text-warning transition-colors hover:text-primary"
+          className="text-warning"
         >
           <Trash2 className="h-5 w-5" />
         </button>

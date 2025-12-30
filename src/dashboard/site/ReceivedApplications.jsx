@@ -39,7 +39,7 @@ export default function ReceivedApplications() {
     );
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 pt-4">
+    <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 pt-4 sm:px-6 lg:px-8">
       {applications.length > 0 ? (
         applications?.map((application) => {
           return (

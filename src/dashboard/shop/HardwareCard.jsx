@@ -66,6 +66,14 @@ export default function HardwareCard({ hardware }) {
             Get Directions
           </button>
         )}
+        {role === "hardware dealer" && (
+          <Link
+            to={`/dashboard/hardware/${hardware._id}/add-product`}
+            className="hover:text-md text-base font-bold text-textfooter underline hover:opacity-80"
+          >
+            Add Products
+          </Link>
+        )}
       </div>
     </div>
   );

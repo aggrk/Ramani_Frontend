@@ -68,7 +68,7 @@ export default function Login() {
                     },
                   })}
                   placeholder="your@email.com"
-                  className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-neutral focus:ring-1 focus:ring-neutral"
+                  className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50"
                 />
                 {errors.email && (
                   <span className="text-xs text-red-500">
@@ -112,7 +112,7 @@ export default function Login() {
                       },
                     })}
                     placeholder="Enter your password"
-                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 pr-9 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50 focus:border-neutral focus:ring-1 focus:ring-neutral"
+                    className="w-full rounded border border-textcolor bg-bgcolor px-3 py-2.5 pr-9 text-sm text-textcolor outline-none transition-all placeholder:text-textsecondary placeholder:opacity-50"
                   />
                   {errors.password && (
                     <span className="text-xs text-red-500">

@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../utils/api";
 import toast from "react-hot-toast";
 import { ErrorMessage } from "@hookform/error-message";
+import { motion } from "motion/react";
 
 export default function EditUser() {
   const {
@@ -45,7 +46,7 @@ export default function EditUser() {
   return (
     <div className="min-h-screen py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-6 text-2xl font-bold uppercase text-gray-800">
+        <h1 className="mb-6 text-2xl font-bold uppercase text-textcolor">
           Update User
         </h1>
 
@@ -54,12 +55,12 @@ export default function EditUser() {
           className="grid w-full grid-cols-1 gap-6 md:grid-cols-2"
         >
           <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700">Name</label>
+            <label className="text-sm font-semibold text-textcolor">Name</label>
             <input
               type="text"
               defaultValue={user.name}
               {...register("name", { required: "The name is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -71,12 +72,14 @@ export default function EditUser() {
           </div>
 
           <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700">Email</label>
+            <label className="text-sm font-semibold text-textcolor">
+              Email
+            </label>
             <input
               type="email"
               defaultValue={user.email}
               {...register("email", { required: "The email is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -88,12 +91,14 @@ export default function EditUser() {
           </div>
 
           <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700">Phone</label>
+            <label className="text-sm font-semibold text-textcolor">
+              Phone
+            </label>
             <input
               type="text"
               defaultValue={user.phone}
               {...register("phone", { required: "The phone is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -105,12 +110,12 @@ export default function EditUser() {
           </div>
 
           <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700">Role</label>
+            <label className="text-sm font-semibold text-textcolor">Role</label>
             <input
               type="text"
               defaultValue={user.role}
               {...register("role", { required: "The role is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -122,14 +127,14 @@ export default function EditUser() {
           </div>
 
           <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700">
+            <label className="text-sm font-semibold text-textcolor">
               Status
             </label>
             <input
               type="text"
               defaultValue={user.status}
               {...register("status", { required: "The status is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -141,16 +146,19 @@ export default function EditUser() {
           </div>
 
           <div className="flex items-end">
-            <button
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
               type="submit"
-              className="w-full rounded-md bg-[#B22222] py-2 font-semibold text-white transition hover:bg-[#d33]"
+              className="w-full rounded-md bg-textsecondary py-2 font-semibold text-bgcolor"
             >
               {mutation.isPending ? (
                 <ActivityIndicator size="xs" />
               ) : (
                 "Save Changes"
               )}
-            </button>
+            </motion.button>
           </div>
         </form>
       </div>

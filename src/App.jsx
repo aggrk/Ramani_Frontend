@@ -33,6 +33,7 @@ import HardwareList from "./dashboard/admin/HardwareList";
 import EditUser from "./dashboard/admin/EditUser";
 import AddUser from "./dashboard/admin/AddUser";
 import ApplicationDetails from "./dashboard/application/ApplicationDetails";
+import AddShop from "./dashboard/shop/AddShop";
 
 export default function App() {
   return (
@@ -90,6 +91,7 @@ export default function App() {
             </Route>
           </Route>
           <Route path="my-shops" element={<MyShops />} />
+          <Route path="add-shop" element={<AddShop />} />
           <Route path="cart" element={<Cart />} />
           <Route path="settings" element={<SettingsLayout />}>
             <Route index element={<UpdateAccountDetails />} />

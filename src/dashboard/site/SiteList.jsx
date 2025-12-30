@@ -40,7 +40,7 @@ export default function SiteList() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-bgfooter" />
                 <input
                   type="text"
-                  placeholder="Search projects..."
+                  placeholder="Search sites..."
                   className="w-full rounded-lg border border-textcolor/20 bg-textcolor py-2 pl-10 pr-4 text-bgfooter outline-none placeholder:text-bgfooter/30 focus:border-bgfooter focus:ring-1 focus:ring-textsecondary"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -48,14 +48,14 @@ export default function SiteList() {
                   disabled={isPending}
                 />
               </div>
-              <button
+              {/* <button
                 className="flex items-center justify-center gap-2 rounded-lg border border-textcolor bg-textcolor px-4 py-2 hover:bg-bgfooter hover:text-textcolor"
                 aria-label="Filter sites"
                 disabled={isPending}
               >
                 <Filter className="h-4 w-4" />
                 <span>Filters</span>
-              </button>
+              </button> */}
             </div>
           </div>
 

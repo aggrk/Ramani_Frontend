@@ -15,11 +15,11 @@ export default function DashboardHeaderPopover() {
         <>
           <Popover.Button
             className={`flex items-center space-x-2 focus:outline-none ${
-              open ? "ring-textsecondary rounded-full pr-2 ring-2" : ""
+              open ? "rounded-full pr-2 ring-2 ring-textsecondary" : ""
             }`}
           >
             <div className="relative">
-              <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-primary to-accent">
+              <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-bgfooter to-textcolor/10">
                 {photo && photo !== "default.jpg" ? (
                   <img
                     src={`${imageUrl}/users/${photo}`}
@@ -38,13 +38,13 @@ export default function DashboardHeaderPopover() {
                   </span>
                 )}
               </div>
-              <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500"></span>
+              <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-textcolor bg-green-500"></span>
             </div>
             <div className="hidden text-left md:block">
-              <p className="text-textcolor max-w-[120px] truncate text-sm font-medium">
+              <p className="max-w-[120px] truncate text-sm font-medium text-textcolor">
                 {name}
               </p>
-              <p className="text-textsecondary text-xs capitalize">{role}</p>
+              <p className="text-xs capitalize text-textsecondary">{role}</p>
             </div>
           </Popover.Button>
 
@@ -57,24 +57,24 @@ export default function DashboardHeaderPopover() {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="ring-bgcolor divide-bgcolor/25 bg-textcolor absolute right-0 mt-2 w-56 origin-top-right divide-y rounded-md shadow-lg ring-1 ring-opacity-5 focus:outline-none">
+            <Popover.Panel className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-bgcolor/25 rounded-md bg-textcolor shadow-lg ring-1 ring-bgcolor ring-opacity-5 focus:outline-none">
               <div className="px-4 py-3">
-                <p className="text-bgcolor text-sm font-medium">{name}</p>
-                <p className="text-bgcolor/75 truncate text-xs capitalize">
+                <p className="text-sm font-medium text-bgcolor">{name}</p>
+                <p className="truncate text-xs capitalize text-bgcolor/75">
                   {role}
                 </p>
               </div>
               <div className="py-1">
                 <Link
                   to="profile"
-                  className="text-bgcolor flex items-center px-4 py-2 text-sm"
+                  className="flex items-center px-4 py-2 text-sm text-bgcolor"
                 >
                   <UserCircle className="mr-2 h-4 w-4" />
                   View Profile
                 </Link>
                 <Link
                   to="settings"
-                  className="text-bgcolor flex items-center px-4 py-2 text-sm"
+                  className="flex items-center px-4 py-2 text-sm text-bgcolor"
                 >
                   <Edit2 className="mr-2 h-4 w-4" />
                   Edit Profile

@@ -1,52 +1,16 @@
-import { useForm } from "react-hook-form";
-import api from "../../utils/api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import ActivityIndicator from "../../components/ActivityIndicator";
+import { useMutation } from "@tanstack/react-query";
 import { motion } from "motion/react";
+import { useForm } from "react-hook-form";
+import ActivityIndicator from "../../components/ActivityIndicator";
 
-export default function AddSite() {
+export default function AddShop() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: async (data) => {
-      const siteData = {
-        engineerName: data.name,
-        siteTitle: data.siteTitle,
-        siteAddress: {
-          street: data.street,
-          city: data.city,
-          region: data.region,
-          country: "Tanzania",
-        },
-        coordinates: {
-          coordinates: [data.longitude, data.latitude],
-        },
-        requiredHandymen: data.handymenAmount,
-        skillsRequired: [data.skills],
-        dates: {
-          start: data.startDate,
-          end: data.endDate,
-        },
-        paymentPerDay: data.payment,
-        description: data.description,
-      };
-      const res = await api.post("/sites", siteData);
-    },
-    onSuccess: () => {
-      toast.success("Site Added Succesfully!");
-      queryClient.invalidateQueries(["sites"]);
-    },
-    onError: (err) => {
-      toast.error(err?.message || "Failed to add site.");
-    },
-  });
+  const mutation = useMutation({});
 
   const onSubmit = (data) => {
     mutation.mutate(data);
@@ -56,10 +20,10 @@ export default function AddSite() {
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-textcolor sm:text-4xl">
-          Add A New Site
+          Add A New Shop
         </h1>
         <p className="mt-3 text-lg text-textsecondary">
-          Fill in the details to create your job site posting
+          Fill in the details to add your new shop.
         </p>
       </div>
 
@@ -99,7 +63,7 @@ export default function AddSite() {
                   type="text"
                   id="name"
                   {...register("name", {
-                    required: "Engineer Name is required!",
+                    required: "Shop Dealer Name is required!",
                   })}
                   placeholder="Enter your full name"
                   className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
@@ -112,23 +76,67 @@ export default function AddSite() {
               </div>
               <div>
                 <label
-                  htmlFor="siteTitle"
+                  htmlFor="name"
                   className="mb-2 block text-sm font-medium text-textcolor"
                 >
-                  Site Title *
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  {...register("email", {
+                    required: "Email is required!",
+                  })}
+                  placeholder="Enter your email"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
+                />
+                {errors.name && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-medium text-textcolor"
+                >
+                  Phone Number *
                 </label>
                 <input
                   type="text"
-                  id="siteTitle"
-                  {...register("siteTitle", {
-                    required: "Site Title is required!",
+                  id="phone"
+                  {...register("phone", {
+                    required: "Phone Number is required!",
                   })}
-                  placeholder="Enter site title"
+                  placeholder="Enter your phone number"
                   className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
-                {errors.siteTitle && (
+                {errors.name && (
                   <p className="mt-1 text-xs text-red-500">
-                    {errors.siteTitle.message}
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="shopName"
+                  className="mb-2 block text-sm font-medium text-textcolor"
+                >
+                  Hardware Name *
+                </label>
+                <input
+                  type="text"
+                  id="shopName"
+                  {...register("shopName", {
+                    required: "Shop Name is required!",
+                  })}
+                  placeholder="Enter shop name"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
+                />
+                {errors.shopName && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.shopName.message}
                   </p>
                 )}
               </div>
@@ -284,7 +292,7 @@ export default function AddSite() {
                     d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                Job Details
+                Shop Details
               </span>
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -293,109 +301,22 @@ export default function AddSite() {
                   htmlFor="handymenAmount"
                   className="mb-2 block text-sm font-medium text-textcolor"
                 >
-                  Handymen Needed *
+                  Licence *
                 </label>
                 <input
-                  type="number"
-                  id="handymenAmount"
-                  {...register("handymenAmount", {
-                    required: "Handymen amount is required!",
+                  type="file"
+                  id="licence"
+                  accept=".pdf"
+                  {...register("licence", {
+                    required: "Licence is required!",
                   })}
-                  placeholder="Number of workers"
+                  placeholder="Enter your licence"
                   min="1"
                   className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
-                {errors.handymenAmount && (
+                {errors.licence && (
                   <p className="mt-1 text-xs text-red-500">
-                    {errors.handymenAmount.message}
-                  </p>
-                )}
-              </div>
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="skills"
-                  className="mb-2 block text-sm font-medium text-textcolor"
-                >
-                  Skills Required *
-                </label>
-                <input
-                  type="text"
-                  id="skills"
-                  {...register("skills", {
-                    required: "Skills set is required!",
-                  })}
-                  placeholder="e.g., Carpentry, Plumbing, Electrical"
-                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
-                />
-                {errors.skills && (
-                  <p className="mt-1 text-xs text-red-500">
-                    {errors.skills.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="startDate"
-                  className="mb-2 block text-sm font-medium text-textcolor"
-                >
-                  Start Date *
-                </label>
-                <input
-                  type="date"
-                  id="startDate"
-                  {...register("startDate", {
-                    required: "Start Date is required!",
-                  })}
-                  className="w-full rounded-lg bg-textcolor px-4 py-3 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
-                />
-                {errors.startDate && (
-                  <p className="mt-1 text-xs text-red-500">
-                    {errors.startDate.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="endDate"
-                  className="mb-2 block text-sm font-medium text-textcolor"
-                >
-                  End Date *
-                </label>
-                <input
-                  type="date"
-                  id="endDate"
-                  {...register("endDate", {
-                    required: "End Date is required!",
-                  })}
-                  className="w-full rounded-lg bg-textcolor px-4 py-3 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
-                />
-                {errors.endDate && (
-                  <p className="mt-1 text-xs text-red-500">
-                    {errors.endDate.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="payment"
-                  className="mb-2 block text-sm font-medium text-textcolor"
-                >
-                  Daily Payment ($) *
-                </label>
-                <input
-                  type="number"
-                  id="payment"
-                  {...register("payment", {
-                    required: "Payment is required!",
-                  })}
-                  placeholder="Amount per day"
-                  min="0"
-                  step="0.01"
-                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
-                />
-                {errors.payment && (
-                  <p className="mt-1 text-xs text-red-500">
-                    {errors.payment.message}
+                    {errors.licence.message}
                   </p>
                 )}
               </div>
@@ -418,7 +339,7 @@ export default function AddSite() {
                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
                   />
                 </svg>
-                Job Description
+                Shop Description
               </span>
             </h2>
             <div>
@@ -426,7 +347,7 @@ export default function AddSite() {
                 htmlFor="description"
                 className="mb-2 block text-sm font-medium text-textcolor"
               >
-                Project Description *
+                Shop Description *
               </label>
               <textarea
                 id="description"
@@ -434,7 +355,7 @@ export default function AddSite() {
                   required: "Description is required",
                 })}
                 rows={4}
-                placeholder="Describe the project, responsibilities, requirements, and any other important details..."
+                placeholder="Describe your shop"
                 className="w-full resize-none rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
               />
               {errors.description && (
@@ -456,7 +377,7 @@ export default function AddSite() {
               {mutation.isPending ? (
                 <ActivityIndicator size="xs" className="border-white" />
               ) : (
-                "Post Site"
+                "Add Site"
               )}
             </motion.button>
           </div>

@@ -24,10 +24,7 @@ export default function UserTableRow({ user }) {
   };
 
   return (
-    <tr
-      key={user._id}
-      className="border-b transition-colors last:border-none hover:bg-neutral"
-    >
+    <tr key={user._id} className="border-b text-textcolor last:border-none">
       <td className="px-6 py-3">{user.name}</td>
       <td className="px-6 py-3">{user.email}</td>
       <td className="px-6 py-3">{user.phone}</td>
@@ -37,8 +34,8 @@ export default function UserTableRow({ user }) {
         <span
           className={`rounded-full px-3 py-1 text-sm font-medium ${
             user.status === "active"
-              ? "bg-secondary text-white"
-              : "bg-warning text-white"
+              ? "bg-textsecondary text-bgcolor"
+              : "text-warning bg-textcolor"
           }`}
         >
           {user.status}
@@ -48,14 +45,14 @@ export default function UserTableRow({ user }) {
       <td className="flex items-center justify-center gap-4 px-6 py-3">
         <Link
           to={`${user._id}`}
-          className="text-secondary transition-colors hover:text-primary"
+          className="text-textsecondary hover:text-textcolor"
         >
           <Edit className="h-5 w-5" />
         </Link>
 
         <button
           onClick={() => handleDeleteUser(user._id)}
-          className="text-warning transition-colors hover:text-primary"
+          className="text-warning rounded-xl bg-textcolor p-2 shadow-xl transition-colors"
         >
           <Trash2 className="h-5 w-5" />
         </button>

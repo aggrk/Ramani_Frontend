@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { ErrorMessage } from "@hookform/error-message";
 import api from "../../utils/api";
+import { motion } from "motion/react";
 
 export default function AddUser() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +39,7 @@ export default function AddUser() {
   return (
     <div className="min-h-screen py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-6 text-2xl font-bold uppercase text-gray-800">
+        <h1 className="mb-6 text-2xl font-bold uppercase text-textcolor">
           Add User
         </h1>
 
@@ -49,7 +50,7 @@ export default function AddUser() {
           <div className="flex flex-col">
             <label
               htmlFor="name"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-textcolor"
             >
               Name
             </label>
@@ -57,7 +58,7 @@ export default function AddUser() {
               id="name"
               type="text"
               {...register("name", { required: "The name is required" })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -71,7 +72,7 @@ export default function AddUser() {
           <div className="flex flex-col">
             <label
               htmlFor="email"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-textcolor"
             >
               Email
             </label>
@@ -85,7 +86,7 @@ export default function AddUser() {
                   message: "Invalid email address",
                 },
               })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -99,7 +100,7 @@ export default function AddUser() {
           <div className="flex flex-col">
             <label
               htmlFor="phone"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-textcolor"
             >
               Phone
             </label>
@@ -119,7 +120,7 @@ export default function AddUser() {
                   );
                 },
               })}
-              className="mt-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+              className="mt-1 rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
             />
             <ErrorMessage
               errors={errors}
@@ -133,7 +134,7 @@ export default function AddUser() {
           <div className="flex flex-col">
             <label
               htmlFor="password"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-textcolor"
             >
               Password
             </label>
@@ -148,7 +149,7 @@ export default function AddUser() {
                     message: "Password must be at least 8 characters",
                   },
                 })}
-                className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+                className="mt-1 w-full rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none focus:ring-2 focus:ring-bgfooter"
               />
               <ErrorMessage
                 errors={errors}
@@ -159,7 +160,7 @@ export default function AddUser() {
               />
               <button
                 type="button"
-                className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textlight transition-colors hover:text-primary"
+                className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textcolor transition-colors hover:text-primary"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -174,7 +175,7 @@ export default function AddUser() {
           <div className="flex flex-col">
             <label
               htmlFor="confirmPassword"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-textcolor"
             >
               Confirm Password
             </label>
@@ -187,7 +188,7 @@ export default function AddUser() {
                   validate: (value) =>
                     value === watch("password") || "Passwords do not match",
                 })}
-                className="mt-1 w-full rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-red-500"
+                className="mt-1 w-full rounded-md border border-textcolor bg-bgfooter px-3 py-2 text-textcolor outline-none"
               />
               <ErrorMessage
                 errors={errors}
@@ -198,7 +199,7 @@ export default function AddUser() {
               />
               <button
                 type="button"
-                className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textlight transition-colors hover:text-primary"
+                className="absolute right-2 top-1/2 -translate-y-1/2 transform text-textcolor transition-colors hover:text-primary"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
                 {showConfirmPassword ? (
@@ -211,16 +212,19 @@ export default function AddUser() {
           </div>
 
           <div className="flex items-end">
-            <button
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
               type="submit"
-              className="w-full rounded-md bg-[#B22222] py-2 font-semibold text-white transition hover:bg-[#d33]"
+              className="w-full rounded-md bg-textsecondary py-2 font-semibold text-bgcolor"
             >
               {mutation.isPending ? (
                 <ActivityIndicator size="xs" />
               ) : (
                 "Add User"
               )}
-            </button>
+            </motion.button>
           </div>
         </form>
       </div>
