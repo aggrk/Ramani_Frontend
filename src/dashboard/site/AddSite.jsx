@@ -3,6 +3,7 @@ import api from "../../utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import ActivityIndicator from "../../components/ActivityIndicator";
+import { motion } from "motion/react";
 
 export default function AddSite() {
   const {
@@ -53,28 +54,25 @@ export default function AddSite() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Header Section */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-textcolor sm:text-4xl">
           Add A New Site
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
+        <p className="mt-3 text-lg text-textsecondary">
           Fill in the details to create your job site posting
         </p>
       </div>
 
-      {/* Form Container */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="rounded-2xl bg-white shadow-xl ring-1 ring-gray-200/50"
+        className="rounded-2xl bg-bgfooter shadow-xl"
       >
         <div className="px-6 py-8 sm:px-8 sm:py-10">
-          {/* Personal Information Section */}
           <div className="mb-10">
-            <h2 className="mb-6 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
+            <h2 className="mb-6 border-b border-textcolor/40 pb-2 text-xl font-semibold text-textcolor">
               <span className="inline-flex items-center">
                 <svg
-                  className="mr-2 h-5 w-5 text-[#B22222]"
+                  className="mr-2 h-5 w-5 text-textsecondary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,7 +91,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Your Name *
                 </label>
@@ -104,7 +102,7 @@ export default function AddSite() {
                     required: "Engineer Name is required!",
                   })}
                   placeholder="Enter your full name"
-                  className="w-full rounded-lg border border-[gray-300] px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="ssssssbg-textcolor w-full rounded-lg px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.name && (
                   <p className="mt-1 text-xs text-red-500">
@@ -115,7 +113,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="siteTitle"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Site Title *
                 </label>
@@ -126,7 +124,7 @@ export default function AddSite() {
                     required: "Site Title is required!",
                   })}
                   placeholder="Enter site title"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.siteTitle && (
                   <p className="mt-1 text-xs text-red-500">
@@ -137,12 +135,11 @@ export default function AddSite() {
             </div>
           </div>
 
-          {/* Location Section */}
           <div className="mb-10">
-            <h2 className="mb-6 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
+            <h2 className="mb-6 border-b border-textcolor/40 pb-2 text-xl font-semibold text-textcolor">
               <span className="inline-flex items-center">
                 <svg
-                  className="mr-2 h-5 w-5 text-[#B22222]"
+                  className="mr-2 h-5 w-5 text-textsecondary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -167,7 +164,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="region"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Region *
                 </label>
@@ -176,7 +173,7 @@ export default function AddSite() {
                   id="region"
                   {...register("region", { required: "Region is required!" })}
                   placeholder="Region/State"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.region && (
                   <p className="mt-1 text-xs text-red-500">
@@ -187,7 +184,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="city"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   City *
                 </label>
@@ -196,7 +193,7 @@ export default function AddSite() {
                   id="city"
                   {...register("city", { required: "City is required!" })}
                   placeholder="City"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.city && (
                   <p className="mt-1 text-xs text-red-500">
@@ -207,7 +204,7 @@ export default function AddSite() {
               <div className="sm:col-span-2 lg:col-span-1">
                 <label
                   htmlFor="street"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Street Address *
                 </label>
@@ -218,7 +215,7 @@ export default function AddSite() {
                     required: "Street Address is required",
                   })}
                   placeholder="Full street address"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.street && (
                   <p className="mt-1 text-xs text-red-500">
@@ -227,16 +224,15 @@ export default function AddSite() {
                 )}
               </div>
 
-              {/* Coordinates Field */}
               <div className="sm:col-span-2 lg:col-span-3">
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+                <label className="mb-2 block text-sm font-medium text-textcolor">
                   Coordinates
                 </label>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
                     <label
                       htmlFor="longitude"
-                      className="mb-1 block text-xs text-gray-500"
+                      className="mb-1 block text-xs text-textcolor"
                     >
                       Longitude
                     </label>
@@ -245,13 +241,13 @@ export default function AddSite() {
                       id="longitude"
                       {...register("longitude")}
                       placeholder="-6.7924"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                      className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="latitude"
-                      className="mb-1 block text-xs text-gray-500"
+                      className="mb-1 block text-xs text-textcolor"
                     >
                       Latitude
                     </label>
@@ -260,11 +256,11 @@ export default function AddSite() {
                       id="latitude"
                       {...register("latitude")}
                       placeholder="39.2083"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                      className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                     />
                   </div>
                 </div>
-                <p className="mt-2 text-xs text-gray-500">
+                <p className="mt-2 text-xs text-textsecondary">
                   Coordinates will be generated automatically based on the
                   location or can be entered manually
                 </p>
@@ -272,12 +268,11 @@ export default function AddSite() {
             </div>
           </div>
 
-          {/* Job Details Section */}
           <div className="mb-10">
-            <h2 className="mb-6 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
+            <h2 className="mb-6 border-b border-textcolor/40 pb-2 text-xl font-semibold text-textcolor">
               <span className="inline-flex items-center">
                 <svg
-                  className="mr-2 h-5 w-5 text-[#B22222]"
+                  className="mr-2 h-5 w-5 text-textsecondary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -296,7 +291,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="handymenAmount"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Handymen Needed *
                 </label>
@@ -308,7 +303,7 @@ export default function AddSite() {
                   })}
                   placeholder="Number of workers"
                   min="1"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.handymenAmount && (
                   <p className="mt-1 text-xs text-red-500">
@@ -319,7 +314,7 @@ export default function AddSite() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="skills"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Skills Required *
                 </label>
@@ -330,7 +325,7 @@ export default function AddSite() {
                     required: "Skills set is required!",
                   })}
                   placeholder="e.g., Carpentry, Plumbing, Electrical"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.skills && (
                   <p className="mt-1 text-xs text-red-500">
@@ -341,7 +336,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="startDate"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Start Date *
                 </label>
@@ -351,7 +346,7 @@ export default function AddSite() {
                   {...register("startDate", {
                     required: "Start Date is required!",
                   })}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.startDate && (
                   <p className="mt-1 text-xs text-red-500">
@@ -362,7 +357,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="endDate"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   End Date *
                 </label>
@@ -372,7 +367,7 @@ export default function AddSite() {
                   {...register("endDate", {
                     required: "End Date is required!",
                   })}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.endDate && (
                   <p className="mt-1 text-xs text-red-500">
@@ -383,7 +378,7 @@ export default function AddSite() {
               <div>
                 <label
                   htmlFor="payment"
-                  className="mb-2 block text-sm font-medium text-gray-700"
+                  className="mb-2 block text-sm font-medium text-textcolor"
                 >
                   Daily Payment ($) *
                 </label>
@@ -396,7 +391,7 @@ export default function AddSite() {
                   placeholder="Amount per day"
                   min="0"
                   step="0.01"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
                 {errors.payment && (
                   <p className="mt-1 text-xs text-red-500">
@@ -407,12 +402,11 @@ export default function AddSite() {
             </div>
           </div>
 
-          {/* Description Section */}
           <div className="mb-8">
-            <h2 className="mb-6 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
+            <h2 className="mb-6 border-b border-textcolor/40 pb-2 text-xl font-semibold text-textcolor">
               <span className="inline-flex items-center">
                 <svg
-                  className="mr-2 h-5 w-5 text-[#B22222]"
+                  className="mr-2 h-5 w-5 text-textsecondary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -430,7 +424,7 @@ export default function AddSite() {
             <div>
               <label
                 htmlFor="description"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="mb-2 block text-sm font-medium text-textcolor"
               >
                 Project Description *
               </label>
@@ -441,7 +435,7 @@ export default function AddSite() {
                 })}
                 rows={4}
                 placeholder="Describe the project, responsibilities, requirements, and any other important details..."
-                className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-[#B22222]"
+                className="w-full resize-none rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
               />
               {errors.description && (
                 <p className="mt-1 text-xs text-red-500">
@@ -451,18 +445,20 @@ export default function AddSite() {
             </div>
           </div>
 
-          {/* Submit Button */}
-          <div className="flex justify-end border-t border-gray-200 pt-6">
-            <button
+          <div className="flex justify-end border-t border-textcolor/40 pt-6">
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
               type="submit"
-              className="transform rounded-lg bg-[#B22222] px-8 py-3 font-semibold text-white outline-none transition-all duration-200 hover:scale-105 hover:bg-[#9B1C1C] focus:scale-105 focus:ring-2 focus:ring-[#B22222] focus:ring-offset-2"
+              className="transform rounded-lg bg-textfooter px-8 py-3 font-semibold text-bgfooter outline-none"
             >
               {mutation.isPending ? (
                 <ActivityIndicator size="xs" className="border-white" />
               ) : (
                 "Post Site"
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
       </form>

@@ -5,7 +5,11 @@ export default function DealerMobileMenuList({ onClick }) {
     <>
       <QuickActionsCard onClick={onClick} link="profile" title="My Profile" />
       <QuickActionsCard onClick={onClick} link="my-shops" title="My Shops" />
-      <QuickActionsCard onClick={onClick} link="sites" title="Sites" />
+      <QuickActionsCard
+        onClick={onClick}
+        link="add-shop"
+        title="Register Shop "
+      />
       <QuickActionsCard onClick={onClick} link="settings" title="Settings" />
     </>
   );
