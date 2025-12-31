@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import ActivityIndicator from "../../components/ActivityIndicator";
+import toast from "react-hot-toast";
+import api from "../../utils/api";
 
 export default function AddShop() {
   const {
@@ -10,10 +12,37 @@ export default function AddShop() {
     formState: { errors },
   } = useForm();
 
-  const mutation = useMutation({});
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      await api.post("/hardware", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    onSuccess: () => {
+      toast.success("Request sent succesfully, wait for approval");
+    },
+    onError: (err) => {
+      toast.error(err?.message || "Failed to add shop.");
+      console.log(err);
+    },
+  });
 
   const onSubmit = (data) => {
-    mutation.mutate(data);
+    const formData = new FormData();
+    formData.append("name", data.shopName);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("description", data.description);
+    formData.append("city", data.city);
+    formData.append("region", data.region);
+    formData.append("street", data.street);
+    formData.append("country", "Tanzania");
+    formData.append("longitude", data.longitude);
+    formData.append("latitude", data.latitude);
+    formData.append("licenseUpload", data.licence[0]);
+    mutation.mutate(formData);
   };
 
   return (
@@ -48,29 +77,29 @@ export default function AddShop() {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                Personal Information
+                Shop Information
               </span>
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="shopName"
                   className="mb-2 block text-sm font-medium text-textcolor"
                 >
-                  Your Name *
+                  Hardware Name *
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  {...register("name", {
-                    required: "Shop Dealer Name is required!",
+                  id="shopName"
+                  {...register("shopName", {
+                    required: "Shop Name is required!",
                   })}
-                  placeholder="Enter your full name"
+                  placeholder="Enter shop name"
                   className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
                 />
-                {errors.name && (
+                {errors.shopName && (
                   <p className="mt-1 text-xs text-red-500">
-                    {errors.name.message}
+                    {errors.shopName.message}
                   </p>
                 )}
               </div>
@@ -115,28 +144,6 @@ export default function AddShop() {
                 {errors.name && (
                   <p className="mt-1 text-xs text-red-500">
                     {errors.phone.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="shopName"
-                  className="mb-2 block text-sm font-medium text-textcolor"
-                >
-                  Hardware Name *
-                </label>
-                <input
-                  type="text"
-                  id="shopName"
-                  {...register("shopName", {
-                    required: "Shop Name is required!",
-                  })}
-                  placeholder="Enter shop name"
-                  className="w-full rounded-lg bg-textcolor px-4 py-3 placeholder-gray-400 outline-none transition-all duration-200 placeholder:text-bgcolor/40 focus:border-transparent focus:ring-2 focus:ring-textsecondary"
-                />
-                {errors.shopName && (
-                  <p className="mt-1 text-xs text-red-500">
-                    {errors.shopName.message}
                   </p>
                 )}
               </div>
