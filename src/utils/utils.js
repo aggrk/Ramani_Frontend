@@ -4,5 +4,6 @@ export const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-export const apiUrl = import.meta.env.VITE_API_URL;
+// export const apiUrl = import.meta.env.VITE_API_URL;
+export const apiUrl = "https://ramaniapi.deploy.tz/api/v1";
 export const imageUrl = import.meta.env.VITE_IMG_URL;
